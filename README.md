@@ -1,6 +1,36 @@
 # Marketplace Docker
 
+## Configuration
 
+### Submodules
+
+```
+git submodule update --recursive
+```
+
+### Database
+
+1. Copy .env.sample file to .env and specify POSTGRES_USER and POSTGRES_PASSWORD
+
+### Marketplace Backend (Escrow and REST API)
+
+
+
+### Mint Backend
+
+1. Create collection (collection). Set admin (admin's seed phrase will be saved in config file)
+
+2. Copy mint_config.sample.json file in root to mint_backend/src/config.json and edit it:
+
+2.1 wsEndpoint: Node endpoint
+2.2 ownerSeed: Seed phrase for collection admin
+2.3 collectionId: Id of collection
+
+
+
+### 
+
+### UI
 
 
 ## License Information

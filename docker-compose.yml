@@ -1,8 +1,8 @@
 ﻿version: "3"
 
 services:
-  postgres:
-    container_name: postgres_container
+  market_db:
+    container_name: market_db
     image: postgres
     env_file:
       - ./.env
@@ -13,12 +13,13 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - postgres
+      - marketnet
     restart: unless-stopped
-  backend:
+  market_backend:
+    container_name: market_backend
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend
+      dockerfile: ./Dockerfile.backend
     ports:
       - "5000:5000"
       - "5001:5001"
@@ -26,13 +27,56 @@ services:
       - ./.env
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionString=Host=postgres;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       - ASPNETCORE_URLS=http://*:5000
     networks:
-      - postgres
+      - marketnet
+    depends_on:
+      - "market_db"
+  # market_escrow:
+  #   container_name: market_escrow
+  #   build:
+  #     context: ./backend
+  #     dockerfile: ./Dockerfile.escrow
+  #   ports:
+  #     - "5002:5002"
+  #   env_file:
+  #     - ./.env
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+  #     - ASPNETCORE_URLS=http://*:5002
+  #   networks:
+  #     - marketnet
+  #   depends_on:
+  #     - "market_db"
+  
+  mint_backend:
+    container_name: mint_backend
+    build:
+      context: ./mint_backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3003:3003"
+    networks:
+      - marketnet
+    volumes:
+      - ./images:/usr/src/app/images
+  ui:
+    container_name: ui
+    build:
+      context: ./ui
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+      - "80:80"
+    networks:
+      - marketnet
+    depends_on:
+      - "market_backend"
 
 networks:
-  postgres:
+  marketnet:
     driver: bridge
 
 volumes:
