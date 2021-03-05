@@ -1,0 +1,6 @@
+[submodule "ui"]
+	path = ui
+	url = git@github.com:usetech-llc/marketplace.git
+[submodule "backend"]
+	path = backend
+	url = git@github.com:usetech-llc/marketplace_backend.git

@@ -1,0 +1,39 @@
+﻿version: "3"
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    env_file:
+      - ./.env
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    env_file:
+      - ./.env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=Host=postgres;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_URLS=http://*:5000
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
