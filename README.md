@@ -31,14 +31,14 @@ MarketplaceUniqueAddress=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 MatcherContractAddress=5H7XmZ2e3urCwYNLScQryN51xDvqjvUeLG6ffDDEz6NmyTbZ
 UniqueEndpoint=ws://localhost:9944/
 
-5. Set escrow address as an admin to the Matcher contract
+5. Set escrow address as an admin in the Matcher contract
 
 
 ### Mint Backend
 
-1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in .env file later)
+1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in .env file)
 
-2. Set MINT_ADMIN_SEED in .env file to contain the collection admin
+2. Set MINT_ADMIN_SEED in .env file to contain the collection admin seed
 
 3. Set the MINT_COLLECTION_ID in .env file: Id of this collection
 
