@@ -80,6 +80,12 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3003:3003"
+    env_file:
+      - ./.env
+    environment:
+      - UniqueEndpoint=${UniqueEndpoint}
+      - MINT_ADMIN_SEED=${MINT_ADMIN_SEED}
+      - MINT_COLLECTION_ID=${MINT_COLLECTION_ID}
     networks:
       - marketnet
     volumes:

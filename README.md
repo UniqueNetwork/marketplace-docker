@@ -37,20 +37,16 @@ UniqueEndpoint=ws://localhost:9944/
 
 ### Mint Backend
 
-1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in config file)
+1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in .env file later)
 
-2. Copy mint_config.sample.js file in root to mint_backend/src/config.js and edit it:
+2. Set MINT_ADMIN_SEED in .env file to contain the collection admin
 
-2.1 wsEndpoint: Node endpoint
+3. Set the MINT_COLLECTION_ID in .env file: Id of this collection
 
-2.2 ownerSeed: Seed phrase for collection admin
-
-2.3 collectionId: Id of collection
-
-
-### 
 
 ### UI
+
+
 
 
 ## License Information
