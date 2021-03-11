@@ -5,6 +5,7 @@
 ### Submodules
 
 ```
+git submodule init
 git submodule update --recursive
 ```
 
@@ -14,18 +15,37 @@ git submodule update --recursive
 
 ### Marketplace Backend (Escrow and REST API)
 
+1. Specify admin seed in .env file in ADMIN_SEED field. This is the seed phrase for the account that admins Matcher contract and controls Escrow.
+
+ADMIN_SEED=//Alice
+
+2. Specify 64-byte private key produced from the same seed phrase in .env file in MarketplacePrivateKey field. (It can be made using usetech-llc subkey)
+
+MarketplacePrivateKey=0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011
+
+3. Set the escrow address that matches to the privake key above:
+
+MarketplaceUniqueAddress=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+4. Set the address of Matcher contract and Unique wss endpoint
+
+MatcherContractAddress=5H7XmZ2e3urCwYNLScQryN51xDvqjvUeLG6ffDDEz6NmyTbZ
+UniqueEndpoint=ws://localhost:9944/
+
+5. Set escrow address as an admin to the Matcher contract
 
 
 ### Mint Backend
 
-1. Create collection (collection). Set admin (admin's seed phrase will be saved in config file)
+1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in config file)
 
-2. Copy mint_config.sample.json file in root to mint_backend/src/config.json and edit it:
+2. Copy mint_config.sample.js file in root to mint_backend/src/config.js and edit it:
 
 2.1 wsEndpoint: Node endpoint
-2.2 ownerSeed: Seed phrase for collection admin
-2.3 collectionId: Id of collection
 
+2.2 ownerSeed: Seed phrase for collection admin
+
+2.3 collectionId: Id of collection
 
 
 ### 

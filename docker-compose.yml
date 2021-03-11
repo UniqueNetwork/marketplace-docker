@@ -33,24 +33,46 @@ services:
       - marketnet
     depends_on:
       - "market_db"
-  # market_escrow:
-  #   container_name: market_escrow
-  #   build:
-  #     context: ./backend
-  #     dockerfile: ./Dockerfile.escrow
-  #   ports:
-  #     - "5002:5002"
-  #   env_file:
-  #     - ./.env
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-  #     - ASPNETCORE_URLS=http://*:5002
-  #   networks:
-  #     - marketnet
-  #   depends_on:
-  #     - "market_db"
-  
+    restart: unless-stopped
+  escrow_unique:
+    container_name: escrow_unique
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.unique.escrow
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./.env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_URLS=http://*:5002
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+    restart: unless-stopped
+
+  escrow_kusama:
+    container_name: escrow_kusama
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.kusama.escrow
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=market_db
+      - DB_PORT=5432
+      - DB_NAME=marketplace
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+    restart: unless-stopped
+
   mint_backend:
     container_name: mint_backend
     build:
@@ -62,6 +84,7 @@ services:
       - marketnet
     volumes:
       - ./images:/usr/src/app/images
+    restart: unless-stopped
   ui:
     container_name: ui
     build:
@@ -74,6 +97,7 @@ services:
       - marketnet
     depends_on:
       - "market_backend"
+    restart: unless-stopped
 
 networks:
   marketnet:
