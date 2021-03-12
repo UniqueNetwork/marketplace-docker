@@ -99,6 +99,13 @@ services:
     ports:
       - "3000:3000"
       - "80:80"
+    env_file:
+      - ./.env
+    environment:
+      - escrowAddress=${MarketplaceUniqueAddress}
+      - MatcherContractAddress=${MatcherContractAddress}
+      - mintedCollection=${MINT_COLLECTION_ID}
+      - vaultAddress=${MarketplaceUniqueAddress}
     networks:
       - marketnet
     depends_on:
