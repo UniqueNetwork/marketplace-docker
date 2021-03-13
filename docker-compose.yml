@@ -111,6 +111,18 @@ services:
     depends_on:
       - "market_backend"
     restart: unless-stopped
+  faucet_bot:
+    container_name: faucet_bot
+    build:
+      context: ./faucet_bot
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./logs:/logs
+    environment:
+      - TG_TOKEN=${FAUCETBOTTOKEN}
+      - faucetSeed=${FAUCET_BOT_ADMIN}
+      - wsEndpoint=${UniqueEndpoint}
+    restart: 'always'
 
 networks:
   marketnet:

@@ -47,6 +47,13 @@ UniqueEndpoint=ws://localhost:9944/
 
 
 
+### Telegram Faucet Bot
+
+1. Set FAUCETBOTTOKEN bot's token in .env file
+2. Set faucet admin seed in FAUCET_BOT_ADMIN in .env file
+3. Charge faucet address with adequate amount of tokens
+
+
 
 ## License Information
 
