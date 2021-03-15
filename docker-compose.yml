@@ -89,7 +89,7 @@ services:
     networks:
       - marketnet
     volumes:
-      - ./images:/usr/src/app/public
+      - ./public:/usr/src/app/public
     restart: unless-stopped
   ui:
     container_name: ui
