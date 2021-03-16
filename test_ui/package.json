@@ -1,0 +1,30 @@
+{
+  "name": "testui",
+  "version": "1.0.0",
+  "description": "Test UI",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "assert",
+      "beforeEach",
+      "afterEach",
+      "describe",
+      "contract",
+      "artifacts"
+    ]
+  }
+}
