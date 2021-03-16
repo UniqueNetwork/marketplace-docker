@@ -125,6 +125,8 @@ services:
       - 3000
     ports:
       - 3000:3000
+    networks:
+      - marketnet
     build:
       context: ./test_ui
       dockerfile: Dockerfile
