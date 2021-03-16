@@ -138,7 +138,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./ui/docker/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - marketnet
     depends_on:
