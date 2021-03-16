@@ -104,7 +104,7 @@ services:
       - 3000:3000
     build:
       context: ./ui
-      dockerfile: Dockerfile-ui-v2
+      dockerfile: Dockerfile-ui-v3
     env_file:
       - ./.env
     environment:
