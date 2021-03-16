@@ -18,25 +18,23 @@ git submodule update --init --recursive --remote
 
 ADMIN_SEED=//Alice
 
-2. Specify 64-byte private key produced from the same seed phrase in .env file in MarketplacePrivateKey field. (It can be made using usetech-llc subkey)
-
-MarketplacePrivateKey=0x33A6F3093F158A7109F679410BEF1A0C54168145E0CECB4DF006C1C2FFFB1F09925A225D97AA00682D6A59B95B18780C10D7032336E88F3442B42361F4A66011
-
-3. Set the escrow address that matches to the privake key above:
+2. Set the escrow address that matches to the privake key above:
 
 MarketplaceUniqueAddress=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 
-4. Set the address of Matcher contract and Unique wss endpoint
+3. Set the address of Matcher contract and Unique wss endpoint
 
 MatcherContractAddress=5H7XmZ2e3urCwYNLScQryN51xDvqjvUeLG6ffDDEz6NmyTbZ
 UniqueEndpoint=ws://localhost:9944/
 
-5. Set escrow address as an admin in the Matcher contract
+4. Set escrow address as an admin in the Matcher contract
 
 
 ### Mint Backend
 
-1. Create collection (collection). Set collection admin (admin's seed phrase will be saved in .env file)
+1. Create collection (collection). 
+    - Set collection admin (admin's seed phrase will be saved in .env file)
+    - Set schema version, on-chain and off-chain schema (see create collection script in mint backend)
 
 2. Set MINT_ADMIN_SEED in .env file to contain the collection admin seed
 
