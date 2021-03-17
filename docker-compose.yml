@@ -50,6 +50,7 @@ services:
       - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       - ASPNETCORE_URLS=http://*:5002
       - MarketplaceUniqueMnemonic=${ADMIN_SEED}
+      - MatcherContractAddress=${MatcherContractAddress}
     networks:
       - marketnet
     depends_on:
