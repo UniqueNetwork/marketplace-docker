@@ -36,26 +36,26 @@ services:
       - "market_db"
     restart: unless-stopped
 
-  escrow_unique:
-    container_name: escrow_unique
-    build:
-      context: ./backend
-      dockerfile: ./Dockerfile.unique.escrow
-    ports:
-      - "5002:5002"
-    env_file:
-      - ./.env
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-      - ASPNETCORE_URLS=http://*:5002
-      - MarketplaceUniqueMnemonic=${ADMIN_SEED}
-      - MatcherContractAddress=${MatcherContractAddress}
-    networks:
-      - marketnet
-    depends_on:
-      - "market_db"
-    restart: unless-stopped
+  # escrow_unique:
+  #   container_name: escrow_unique
+  #   build:
+  #     context: ./backend
+  #     dockerfile: ./Dockerfile.unique.escrow
+  #   ports:
+  #     - "5002:5002"
+  #   env_file:
+  #     - ./.env
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionString=Host=market_db;Port=5432;Database=marketplace;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+  #     - ASPNETCORE_URLS=http://*:5002
+  #     - MarketplaceUniqueMnemonic=${ADMIN_SEED}
+  #     - MatcherContractAddress=${MatcherContractAddress}
+  #   networks:
+  #     - marketnet
+  #   depends_on:
+  #     - "market_db"
+  #   restart: unless-stopped
 
   escrow_kusama:
     container_name: escrow_kusama
