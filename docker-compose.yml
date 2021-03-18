@@ -36,6 +36,7 @@ services:
       - "market_db"
     restart: unless-stopped
 
+  # .NET unique escrow service
   # escrow_unique:
   #   container_name: escrow_unique
   #   build:
@@ -56,6 +57,28 @@ services:
   #   depends_on:
   #     - "market_db"
   #   restart: unless-stopped
+
+  # JS unique escrow service
+  escrow_unique:
+    container_name: escrow_unique
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.unique.js.escrow
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=market_db
+      - DB_PORT=5432
+      - DB_NAME=marketplace
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+      - MatcherContractAddress=${MatcherContractAddress}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+    restart: unless-stopped
 
   escrow_kusama:
     container_name: escrow_kusama
