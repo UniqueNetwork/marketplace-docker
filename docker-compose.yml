@@ -1,4 +1,4 @@
-﻿version: "3"
+version: "3"
 
 services:
   market_db:
@@ -174,10 +174,15 @@ services:
     build:
       context: ./ui
       dockerfile: ./Dockerfile-ui-v4
+      args:
+        - escrowAddress=${MarketplaceUniqueAddress}
+        - MatcherContractAddress=${MatcherContractAddress}
+        - mintedCollection=${MINT_COLLECTION_ID}
+        - vaultAddress=${MarketplaceUniqueAddress}
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "3000:3000"
+#      - "3000:3000"
       - "80:80"
     env_file:
       - ./.env
