@@ -1,7 +1,7 @@
 [submodule "ui"]
 	path = ui
 	url = git@github.com:usetech-llc/marketplace.git
-	branch = marketplace-2.0
+	branch = develop
 [submodule "backend"]
 	path = backend
 	url = git@github.com:usetech-llc/marketplace_backend.git
