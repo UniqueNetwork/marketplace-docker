@@ -8,7 +8,7 @@
 [submodule "mint_backend"]
 	path = mint_backend
 	url = git@github.com:usetech-llc/gallery_backend.git
-[submodule "faucet_bot"]
-	path = faucet_bot
-	url = git@github.com:usetech-llc/faucet_bot.git
-	branch = testnet2
+# [submodule "faucet_bot"]
+# 	path = faucet_bot
+# 	url = git@github.com:usetech-llc/faucet_bot.git
+# 	branch = testnet2
