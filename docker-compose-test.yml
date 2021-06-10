@@ -116,8 +116,8 @@ services:
       - ./nginx/whitelabelmarket.key:/etc/ssl/private/whitelabelmarket.key
       - ./nginx/whitelabelmarket.pem:/etc/ssl/certs/whitelabelmarket.pem
     ports:
-      - "5000:5000"
-      - "5001:5001"
+    #  - "5000:5000"
+    #  - "5001:5001"
       - "80:80"
       - "443:443"
     env_file:
