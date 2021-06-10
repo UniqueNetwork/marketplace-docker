@@ -85,6 +85,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3003:3003"
+      - "5000:5000"
+      - "5001:5001"
     env_file:
       - ./.env
     environment:
@@ -114,7 +116,8 @@ services:
       - ./nginx/whitelabelmarket.key:/etc/ssl/private/whitelabelmarket.key
       - ./nginx/whitelabelmarket.pem:/etc/ssl/certs/whitelabelmarket.pem
     ports:
-#      - "3000:3000"
+      - "5000:5000"
+      - "5001:5001"
       - "80:80"
       - "443:443"
     env_file:
