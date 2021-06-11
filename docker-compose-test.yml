@@ -109,7 +109,7 @@ services:
         - mintedCollection=${MINT_COLLECTION_ID}
         - vaultAddress=${MarketplaceUniqueAddress}
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx-test.conf:/etc/nginx/nginx.conf
       - /home/ubuntu/marketplace_docker/ui/packages/apps/public/chelopunks-test.env-config.js:/usr/share/nginx/html/env-config.js
       - ./nginx/whitelabelmarket.key:/etc/ssl/private/whitelabelmarket.key
       - ./nginx/whitelabelmarket.pem:/etc/ssl/certs/whitelabelmarket.pem
