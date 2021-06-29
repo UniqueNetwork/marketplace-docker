@@ -2,5 +2,6 @@
 mint_config.json
 images
 logs
+*.log
 *.key
 *.pem
