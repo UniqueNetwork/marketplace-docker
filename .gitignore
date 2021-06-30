@@ -1,4 +1,5 @@
 .env
+.env-test
 mint_config.json
 images
 logs
