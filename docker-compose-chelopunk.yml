@@ -98,38 +98,38 @@ services:
 #      - ./public:/usr/src/app/public
 #    restart: unless-stopped
 
-  ui:
-    container_name: ui
-    build:
-      context: ./ui
-      dockerfile: ./Dockerfile
-      args:
-        - escrowAddress=${MarketplaceUniqueAddress}
-        - MatcherContractAddress=${MatcherContractAddress}
-        - mintedCollection=${MINT_COLLECTION_ID}
-        - vaultAddress=${MarketplaceUniqueAddress}
-    volumes:
-      - ./nginx/nginx-test.conf:/etc/nginx/nginx.conf
-      - /home/ubuntu/marketplace_docker/ui/packages/apps/public/chelopunks-test.env-config.js:/usr/share/nginx/html/env-config.js
-      - ./nginx/uniquenetwork.io.key:/etc/ssl/private/uniquenetwork.io.key
-      - ./nginx/uniquenetwork.io.pem:/etc/ssl/certs/uniquenetwork.io.pem
-    ports:
+#  ui:
+#    container_name: ui
+#    build:
+#      context: ./ui
+#      dockerfile: ./Dockerfile
+#      args:
+#        - escrowAddress=${MarketplaceUniqueAddress}
+#        - MatcherContractAddress=${MatcherContractAddress}
+#        - mintedCollection=${MINT_COLLECTION_ID}
+#        - vaultAddress=${MarketplaceUniqueAddress}
+#    volumes:
+#      - ./nginx/nginx-test.conf:/etc/nginx/nginx.conf
+#      - /home/ubuntu/marketplace_docker/ui/packages/apps/public/chelopunks-test.env-config.js:/usr/share/nginx/html/env-config.js
+#      - ./nginx/uniquenetwork.io.key:/etc/ssl/private/uniquenetwork.io.key
+#      - ./nginx/uniquenetwork.io.pem:/etc/ssl/certs/uniquenetwork.io.pem
+#    ports:
     #  - "5000:5000"
     #  - "5001:5001"
-      - "80:80"
-      - "443:443"
-    env_file:
-      - ./.env
-    environment:
-      - escrowAddress=${MarketplaceUniqueAddress}
-      - MatcherContractAddress=${MatcherContractAddress}
-      - mintedCollection=${MINT_COLLECTION_ID}
-      - vaultAddress=${MarketplaceUniqueAddress}
-    networks:
-      - marketnet
-    depends_on:
-      - "market_backend"
-    restart: unless-stopped
+#      - "80:80"
+#      - "443:443"
+#    env_file:
+#      - ./.env
+#    environment:
+#      - escrowAddress=${MarketplaceUniqueAddress}
+#      - MatcherContractAddress=${MatcherContractAddress}
+#      - mintedCollection=${MINT_COLLECTION_ID}
+#      - vaultAddress=${MarketplaceUniqueAddress}
+#    networks:
+#      - marketnet
+#    depends_on:
+#      - "market_backend"
+#    restart: unless-stopped
 
 networks:
   marketnet:
