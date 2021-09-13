@@ -1,0 +1,88 @@
+version: "3"
+
+services:
+  market_db:
+    container_name: market_db
+    image: postgres
+    env_file:
+      - ./.env
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - marketnet
+    restart: unless-stopped
+
+  # JS unique escrow service
+  escrow_unique:
+    container_name: escrow_unique
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.unique.js.escrow
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=market_db
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+      - MatcherContractAddress=${MatcherContractAddress}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+    restart: unless-stopped
+
+  escrow_kusama:
+    container_name: escrow_kusama
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.kusama.escrow
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=market_db
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+      - "escrow_unique"
+    restart: unless-stopped
+
+  market_backend:
+    container_name: market_backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile.backend
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    env_file:
+      - ./.env
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=Host=market_db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_URLS=http://*:5000
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+      - "escrow_unique"
+    restart: unless-stopped
+
+networks:
+  marketnet:
+    driver: bridge
+
+volumes:
+  postgres:
