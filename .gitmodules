@@ -1,7 +1,7 @@
 [submodule "ui"]
 	path = ui
-	url = https://github.com/UniqueNetwork/marketplace.git
+	url = https://github.com/usetech-llc/marketplace.git
 	branch = develop
 [submodule "backend"]
 	path = backend
-	url = https://github.com/UniqueNetwork/marketplace_backend.git
+	url = https://github.com/usetech-llc/marketplace_backend.git
