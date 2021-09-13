@@ -1,17 +1,7 @@
 [submodule "ui"]
 	path = ui
-#	url = git@github.com:usetech-llc/marketplace.git
-	url = https://github.com/usetech-llc/marketplace.git
+	url = https://github.com/UniqueNetwork/marketplace.git
 	branch = develop
 [submodule "backend"]
 	path = backend
-#	url = git@github.com:usetech-llc/marketplace_backend.git
-	url = https://github.com/usetech-llc/marketplace_backend.git
-[submodule "mint_backend"]
-	path = mint_backend
-#	url = git@github.com:usetech-llc/gallery_backend.git
-	url = https://github.com/usetech-llc/gallery_backend.git
-# [submodule "faucet_bot"]
-# 	path = faucet_bot
-# 	url = git@github.com:usetech-llc/faucet_bot.git
-# 	branch = testnet2
+	url = https://github.com/UniqueNetwork/marketplace_backend.git
