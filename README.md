@@ -14,7 +14,7 @@ git submodule update --init --recursive --remote
 
 ### Marketplace Backend (Escrow and REST API)
 
-1. Specify admin seed in .env file in ADMIN_SEED field. This is the seed phrase for the account that admins Matcher contract and controls Escrow.
+1. Specify admin seed in .env file in ADMIN_SEED field. This is the seed phrase for the account that admins Matcher contract and controls Escrow. The same account should own the matcher contract so that it can add to contract white list for sponsoring.
 
 ADMIN_SEED=//Alice
 
@@ -29,6 +29,11 @@ UniqueEndpoint=ws://localhost:9944/
 
 4. Set escrow address as an admin in the Matcher contract
 
+### Matcher contract
+
+1. Deploy the matcher contract using the Admin address created with ADMIN_SEED previously
+2. Set the Admin address to be the admin using setAdmin method in the contract
+3. Enable contract sponsoring
 
 ### Mint Backend
 
