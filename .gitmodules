@@ -5,3 +5,4 @@
 [submodule "backend"]
 	path = backend
 	url = https://github.com/usetech-llc/marketplace_backend.git
+	branch = master
