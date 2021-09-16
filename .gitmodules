@@ -5,9 +5,12 @@
 [submodule "web-api"]
 	path = web-api
 	url = https://github.com/UniqueNetwork/unique-marketplace-api/
+	branch = master
 [submodule "escrow-unique"]
 	path = escrow-unique
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow-own
+	branch = master
 [submodule "escrow-kusama"]
 	path = escrow-kusama
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow-kusama
+	branch = master

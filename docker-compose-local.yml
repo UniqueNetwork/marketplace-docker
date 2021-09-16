@@ -20,8 +20,8 @@ services:
   escrow_unique:
     container_name: escrow_unique
     build:
-      context: ./backend
-      dockerfile: ./Dockerfile.unique.js.escrow
+      context: ./escrow-unique
+      dockerfile: ./Dockerfile
     env_file:
       - ./.env
     environment:
@@ -41,8 +41,8 @@ services:
   escrow_kusama:
     container_name: escrow_kusama
     build:
-      context: ./backend
-      dockerfile: ./Dockerfile.kusama.escrow
+      context: ./escrow-kusama
+      dockerfile: ./Dockerfile
     env_file:
       - ./.env
     environment:
@@ -60,10 +60,10 @@ services:
     restart: unless-stopped
 
   market_backend:
-    container_name: market_backend
+    container_name: market_api
     build:
-      context: ./backend
-      dockerfile: ./Dockerfile.backend
+      context: ./web-api
+      dockerfile: ./Dockerfile
     ports:
       - "5000:5000"
       - "5001:5001"
