@@ -68,13 +68,15 @@ services:
       - 5000
     ports:
       - "5000:5000"
-      - "5001:5001"
     env_file:
       - ./.env
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionString=Host=market_db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-      - ASPNETCORE_URLS=http://*:5000
+      - DB_HOST=market_db
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - API_PORT=5000
     networks:
       - marketnet
     depends_on:
