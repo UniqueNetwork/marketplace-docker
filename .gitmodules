@@ -8,7 +8,7 @@
 	branch = master
 [submodule "escrow-unique"]
 	path = escrow-unique
-	url = https://github.com/UniqueNetwork/unique-marketplace-escrow-own
+	url = https://github.com/UniqueNetwork/unique-marketplace-escrow
 	branch = master
 [submodule "escrow-kusama"]
 	path = escrow-kusama
