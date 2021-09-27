@@ -1,20 +1,20 @@
 version: "3"
 
 services:
-  market_db:
-    container_name: market_db
-    image: postgres
-    env_file:
-      - ./.env
-    environment:
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - marketnet
-    restart: unless-stopped
+#  market_db:
+#    container_name: market_db
+#    image: postgres
+#    env_file:
+#      - ./.env
+#    environment:
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres:/data/postgres
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - marketnet
+#    restart: unless-stopped
 
   # JS unique escrow service
   escrow_unique:
