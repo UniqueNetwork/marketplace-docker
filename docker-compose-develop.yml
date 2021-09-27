@@ -84,16 +84,16 @@ services:
       - "escrow_unique"
     restart: unless-stopped
 
-  frontend:
-    image: apps
-    container_name: frontend
-    expose:
-      - 3000
-    ports:
-      - 3000:3000
-    build:
-      context: ./ui
-      dockerfile: Dockerfile.ui.local
+#  frontend:
+#    image: apps
+#    container_name: frontend
+#    expose:
+#      - 3000
+#    ports:
+#      - 3000:3000
+#    build:
+#      context: ./ui
+#      dockerfile: Dockerfile.ui.local
     # env_file:
     #   - ./.env
     # environment:
@@ -101,12 +101,12 @@ services:
     #   - MatcherContractAddress=${MatcherContractAddress}
     #   - mintedCollection=${MINT_COLLECTION_ID}
     #   - vaultAddress=${MarketplaceUniqueAddress}
-    networks:
-      - marketnet
-    depends_on:
-      - "market_backend"
-    restart: unless-stopped
-    command: bash -c 'yarn start'
+ #   networks:
+ #     - marketnet
+ #   depends_on:
+ #     - "market_backend"
+ #   restart: unless-stopped
+ #   command: bash -c 'yarn start'
 
 networks:
   marketnet:
