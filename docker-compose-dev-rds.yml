@@ -1,0 +1,116 @@
+version: "3"
+
+services:
+  market_db:
+    container_name: market_db
+    image: postgres
+    env_file:
+      - ./.env
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - marketnet
+    restart: unless-stopped
+
+  # JS unique escrow service
+  escrow_unique:
+    container_name: escrow_unique
+    build:
+      context: ./escrow-unique
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+      - MatcherContractAddress=${MatcherContractAddress}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+    restart: unless-stopped
+
+  escrow_kusama:
+    container_name: escrow_kusama
+    build:
+      context: ./escrow-kusama
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ADMIN_SEED=${ADMIN_SEED}
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+      - "escrow_unique"
+    restart: unless-stopped
+
+  market_backend:
+    container_name: market_api
+    build:
+      context: ./web-api
+      dockerfile: ./Dockerfile
+    expose:
+      - 5000
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.env
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - API_PORT=5000
+    networks:
+      - marketnet
+    depends_on:
+      - "market_db"
+      - "escrow_unique"
+    restart: unless-stopped
+
+#  frontend:
+#    image: apps
+#    container_name: frontend
+#    expose:
+#      - 3000
+#    ports:
+#      - 3000:3000
+#    build:
+#      context: ./ui
+#      dockerfile: Dockerfile.ui.local
+    # env_file:
+    #   - ./.env
+    # environment:
+    #   - escrowAddress=${MarketplaceUniqueAddress}
+    #   - MatcherContractAddress=${MatcherContractAddress}
+    #   - mintedCollection=${MINT_COLLECTION_ID}
+    #   - vaultAddress=${MarketplaceUniqueAddress}
+ #   networks:
+ #     - marketnet
+ #   depends_on:
+ #     - "market_backend"
+ #   restart: unless-stopped
+ #   command: bash -c 'yarn start'
+
+networks:
+  marketnet:
+    driver: bridge
+
+volumes:
+  postgres:
