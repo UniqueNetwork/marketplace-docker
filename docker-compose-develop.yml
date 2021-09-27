@@ -25,7 +25,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - DB_HOST=market_db
+      - DB_HOST=${DB_HOST}
       - DB_PORT=5432
       - DB_NAME=${POSTGRES_DB}
       - DB_USER=${POSTGRES_USER}
@@ -46,7 +46,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - DB_HOST=market_db
+      - DB_HOST=${DB_HOST}
       - DB_PORT=5432
       - DB_NAME=${POSTGRES_DB}
       - DB_USER=${POSTGRES_USER}
@@ -71,7 +71,7 @@ services:
     env_file:
       - ./.env
     environment:
-      - DB_HOST=market_db
+      - DB_HOST=${DB_HOST}
       - DB_PORT=5432
       - DB_NAME=${POSTGRES_DB}
       - DB_USER=${POSTGRES_USER}
