@@ -68,7 +68,8 @@ Copy your account address from Polkadot{.js} extension and send it to the faucet
 
 ![Deploy Marketplace Smart Contract](/doc/step4-5.png)
 
-7. Click on the “exec” button in front of the setAdmin method and select the marketplace admin address both as the caller (“call from account”) and the parameter (“message to send”). Click Execute button and follow with signing this transaction:
+7. Click on the “exec” button in front of the setAdmin method and select the marketplace admin address both as the caller (“call from account”) and the parameter (“message to send”). Make sure you've put the same address twice, as shown in the picture.
+Click Execute button and follow with signing this transaction:
 
 ![Deploy Marketplace Smart Contract](/doc/step4-6.png)
 
@@ -90,6 +91,7 @@ git submodule update --init --recursive --remote
 ```
 
 ## Step 6 - Configure backend (.env file)
+In this step we will configure the marketplace backend with your administrator address, seed and the matcher contract address.
 
 1. Create .env file in the root of marketplace-docker project and paste the following content in there:
 
