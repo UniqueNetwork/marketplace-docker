@@ -2,6 +2,14 @@
 
 ## Configuration
 
+### Pre-pull docker images
+
+```
+docker pull postgres:latest
+docker pull node:latest
+docker pull ubuntu:18.04
+```
+
 ### Submodules
 
 ```
