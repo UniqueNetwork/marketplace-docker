@@ -5,7 +5,7 @@ Who is this document for:
   * Full stack engineers
   * IT administrators
 
-In this tutorial we will install the marketplace locally on a computer or in a virtual machine with Ubuntu OS. The process of installing it in a production environment is the same plus your IT administrator will need to setup the infrastructure (such as domain name, hosting, firewall, nginx, and SSL certificates) so that the server that hosts the marketplace can be accessed by the users on the Internet, like Unique marketplace: [https://unqnft.io].
+In this tutorial we will install the marketplace locally on a computer or in a virtual machine with Ubuntu OS. The process of installing it in a production environment is the same plus your IT administrator will need to setup the infrastructure (such as domain name, hosting, firewall, nginx, and SSL certificates) so that the server that hosts the marketplace can be accessed by the users on the Internet, like Unique marketplace: [https://unqnft.io](https://unqnft.io).
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ In this tutorial we will install the marketplace locally on a computer or in a v
 
 ## Step 1 - Install Polkadot{.js} Extension
 
-Visit [https://polkadot.js.org/extension/] and click on the “Download for Chrome” button. Chrome browser will guide you through the rest of the process.
+Visit [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/) and click on the “Download for Chrome” button. Chrome browser will guide you through the rest of the process.
 
 ![Install Polkadot{.js} Extension](/doc/step1-1.png)
 
@@ -30,7 +30,7 @@ As a result you should see that little icon in the top right corner:
 
 Click on the Polkadot{.js} extension icon and select “create new account” in the menu:
 
-![Create Admin Address](/doc/step2-1.png)
+![Create Admin Address](/doc/step2-1.png | width=200)
 
 You should write down the 12-word mnemonic seed on the paper. Do not share it with anybody because this 12-word phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
@@ -42,13 +42,13 @@ In order to get the marketplace running, you’ll need some Unique coins. For th
 
 Copy your account address from Polkadot{.js} extension and send it to the faucet bot:
 
-![Get Unique](/doc/step3-1.png)
+![Get Unique](/doc/step3-1.png | width=200)
 
 ## Step 4 - Deploy Marketplace Smart Contract
 
 1. Download [matcher.wasm](/doc/matcher.wasm) and [metadata.json](/doc/metadata.json) files
 
-2. Open Polkadot Apps UI on the Contracts page: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts]
+2. Open Polkadot Apps UI on the Contracts page: (https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts)[https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts]
 
 ![Deploy Marketplace Smart Contract](/doc/step4-1.png)
 
@@ -104,20 +104,20 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
 ```
 
 2. Edit the .env file:
-  1. Change ADMIN_SEED to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
-  2. Change MarketplaceUniqueAddress value to the address that you have copied from Polkadot{.js} extension:
+  * Change ADMIN_SEED to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
+  * Change MarketplaceUniqueAddress value to the address that you have copied from Polkadot{.js} extension:
 
-  ![Deploy Marketplace Smart Contract](/doc/step6-1.png)
+  ![Deploy Marketplace Smart Contract](/doc/step6-1.png | width=150)
 
-  3. Change MatcherContractAddress value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
+  * Change MatcherContractAddress value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
   ![Deploy Marketplace Smart Contract](/doc/step6-2.png)
 
-  4. Leave the rest of values intact
+  * Leave the rest of values intact
 
 As a result you should see a similar content to this:
 
-![Deploy Marketplace Smart Contract](/doc/step6-3.png)
+![Deploy Marketplace Smart Contract](/doc/step6-3.png | width=50%)
 
 
 ## Step 7 - Configure frontend (.env file)
