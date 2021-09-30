@@ -38,7 +38,7 @@ Follow the Polkadot{.js} instructions to complete the account setup.
 
 ## Step 3 - Get Unique
 
-In order to get the marketplace running, you’ll need some Unique coins. For the TestNet 2.0, it is free. You can get it from the faucet bot on Telegram: [@unique2faucetbot](@unique2faucetbot)
+In order to get the marketplace running, you’ll need some Unique coins. For the TestNet 2.0, it is free. You can get it from the faucet bot on Telegram: [@unique2faucetbot](https://t.me/unique2faucetbot)
 
 Copy your account address from Polkadot{.js} extension and send it to the faucet bot:
 
