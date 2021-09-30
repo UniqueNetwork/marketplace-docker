@@ -30,7 +30,7 @@ As a result you should see that little icon in the top right corner:
 
 Click on the Polkadot{.js} extension icon and select “create new account” in the menu:
 
-<img src="/doc/step2-1.png" width="200">
+<img src="/doc/step2-1.png" width="400">
 
 You should write down the 12-word mnemonic seed on the paper. Do not share it with anybody because this 12-word phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
@@ -42,7 +42,7 @@ In order to get the marketplace running, you’ll need some Unique coins. For th
 
 Copy your account address from Polkadot{.js} extension and send it to the faucet bot:
 
-![Get Unique](/doc/step3-1.png | width=200)
+<img src="/doc/step3-1.png" width="400">
 
 ## Step 4 - Deploy Marketplace Smart Contract
 
@@ -107,7 +107,7 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
   * Change ADMIN_SEED to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
   * Change MarketplaceUniqueAddress value to the address that you have copied from Polkadot{.js} extension:
 
-  ![Deploy Marketplace Smart Contract](/doc/step6-1.png | width=150)
+    <img src="/doc/step6-1.png" width="200">
 
   * Change MatcherContractAddress value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
@@ -117,8 +117,7 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
 
 As a result you should see a similar content to this:
 
-![Deploy Marketplace Smart Contract](/doc/step6-3.png | width=50%)
-
+    <img src="/doc/step6-3.png" width="400">
 
 ## Step 7 - Configure frontend (.env file)
 
