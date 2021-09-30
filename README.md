@@ -111,13 +111,13 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
 
   * Change MatcherContractAddress value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
-  ![Deploy Marketplace Smart Contract](/doc/step6-2.png)
+    <img src="/doc/step6-2.png" width="400">
 
   * Leave the rest of values intact
 
 As a result you should see a similar content to this:
 
-    <img src="/doc/step6-3.png" width="400">
+<img src="/doc/step6-3.png" width="400">
 
 ## Step 7 - Configure frontend (.env file)
 
