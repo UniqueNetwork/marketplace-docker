@@ -117,7 +117,7 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
 
 As a result you should see a similar content to this:
 
-<img src="/doc/step6-3.png" width="400">
+<img src="/doc/step6-3.png" width="600">
 
 ## Step 7 - Configure frontend (.env file)
 
