@@ -1,0 +1,1466 @@
+{
+  "metadataVersion": "0.1.0",
+  "source": {
+    "hash": "0x891a0bd81ed66496b9e203d13d65ab2cd99e668dc256189c57d7fc813880ffc0",
+    "language": "ink! 3.0.0-rc3",
+    "compiler": "rustc 1.52.0-nightly"
+  },
+  "contract": {
+    "name": "matcher",
+    "version": "0.2.0",
+    "authors": [
+      "Greg Zaitsev <gz@usetech.com>"
+    ]
+  },
+  "spec": {
+    "constructors": [
+      {
+        "args": [],
+        "docs": [],
+        "name": [
+          "new"
+        ],
+        "selector": "0x9bae9d5e"
+      }
+    ],
+    "docs": [],
+    "events": [
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "amount",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [
+          " Event emitted when a quote withdraw is needed on a match"
+        ],
+        "name": "WithdrawQuoteMatched"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "amount",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [
+          " Event emitted when a unused quote withdraw is needed"
+        ],
+        "name": "WithdrawQuoteUnused"
+      },
+      {
+        "args": [
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "address",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "docs": [],
+            "indexed": true,
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Event emitted when an NFT withdraw is needed"
+        ],
+        "name": "WithdrawNFT"
+      }
+    ],
+    "messages": [
+      {
+        "args": [],
+        "docs": [
+          " Returns the contract owner"
+        ],
+        "mutates": false,
+        "name": [
+          "get_owner"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "AccountId"
+          ],
+          "type": 1
+        },
+        "selector": "0x07fcd0b1"
+      },
+      {
+        "args": [
+          {
+            "name": "admin",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [
+          " Set contract admin"
+        ],
+        "mutates": true,
+        "name": [
+          "set_admin"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x798dcad5"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Get total"
+        ],
+        "mutates": false,
+        "name": [
+          "get_total"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "Balance"
+          ],
+          "type": 11
+        },
+        "selector": "0xbb42822c"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Reset total"
+        ],
+        "mutates": true,
+        "name": [
+          "reset_total"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0xf3d2a6e8"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "deposit_balance",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 11
+            }
+          },
+          {
+            "name": "user",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [
+          " Admin: Make a deposit for a user"
+        ],
+        "mutates": true,
+        "name": [
+          "register_deposit"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0xe70cfcac"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Get address balance in quote currency"
+        ],
+        "mutates": false,
+        "name": [
+          "get_balance"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "Balance"
+          ],
+          "type": 11
+        },
+        "selector": "0xea817e65"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "withdraw_balance",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [
+          " User: Withdraw funds"
+        ],
+        "mutates": true,
+        "name": [
+          "withdraw"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x410fcc9d"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "user",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [
+          " Admin: Tell the market about a successful NFT deposit"
+        ],
+        "mutates": true,
+        "name": [
+          "register_nft_deposit"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x087c9b16"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Get deposit "
+        ],
+        "mutates": false,
+        "name": [
+          "get_nft_deposit"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "AccountId"
+          ],
+          "type": 1
+        },
+        "selector": "0xa5c435ad"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "price",
+            "type": {
+              "displayName": [
+                "Balance"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [
+          " User: Place a deposited NFT for sale"
+        ],
+        "mutates": true,
+        "name": [
+          "ask"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x020f741e"
+      },
+      {
+        "args": [],
+        "docs": [
+          " Get last ask ID"
+        ],
+        "mutates": false,
+        "name": [
+          "get_last_ask_id"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "u128"
+          ],
+          "type": 11
+        },
+        "selector": "0x77125c55"
+      },
+      {
+        "args": [
+          {
+            "name": "ask_id",
+            "type": {
+              "displayName": [
+                "u128"
+              ],
+              "type": 11
+            }
+          }
+        ],
+        "docs": [
+          " Get ask by ID"
+        ],
+        "mutates": false,
+        "name": [
+          "get_ask_by_id"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [],
+          "type": 18
+        },
+        "selector": "0xf10a2ce3"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Get ask by token"
+        ],
+        "mutates": false,
+        "name": [
+          "get_ask_id_by_token"
+        ],
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "u128"
+          ],
+          "type": 11
+        },
+        "selector": "0x23d17ab2"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Cancel an ask"
+        ],
+        "mutates": true,
+        "name": [
+          "cancel"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x9796e9a7"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Match an ask"
+        ],
+        "mutates": true,
+        "name": [
+          "buy"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x15d62801"
+      },
+      {
+        "args": [
+          {
+            "name": "quote_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "user",
+            "type": {
+              "displayName": [
+                "AccountId"
+              ],
+              "type": 1
+            }
+          }
+        ],
+        "docs": [
+          " Clear deposited balance"
+        ],
+        "mutates": true,
+        "name": [
+          "clear_balance"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0x240c2f19"
+      },
+      {
+        "args": [
+          {
+            "name": "collection_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          },
+          {
+            "name": "token_id",
+            "type": {
+              "displayName": [
+                "u64"
+              ],
+              "type": 8
+            }
+          }
+        ],
+        "docs": [
+          " Clear deposited NFT"
+        ],
+        "mutates": true,
+        "name": [
+          "clear_nft_deposit"
+        ],
+        "payable": false,
+        "returnType": null,
+        "selector": "0xcfe4ded7"
+      }
+    ]
+  },
+  "storage": {
+    "struct": {
+      "fields": [
+        {
+          "layout": {
+            "cell": {
+              "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "ty": 1
+            }
+          },
+          "name": "owner"
+        },
+        {
+          "layout": {
+            "cell": {
+              "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+              "ty": 1
+            }
+          },
+          "name": "admin"
+        },
+        {
+          "layout": {
+            "struct": {
+              "fields": [
+                {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "cell": {
+                              "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                              "ty": 4
+                            }
+                          },
+                          "name": "header"
+                        },
+                        {
+                          "layout": {
+                            "struct": {
+                              "fields": [
+                                {
+                                  "layout": {
+                                    "cell": {
+                                      "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                                      "ty": 5
+                                    }
+                                  },
+                                  "name": "len"
+                                },
+                                {
+                                  "layout": {
+                                    "array": {
+                                      "cellsPerElem": 1,
+                                      "layout": {
+                                        "cell": {
+                                          "key": "0x0300000001000000000000000000000000000000000000000000000000000000",
+                                          "ty": 6
+                                        }
+                                      },
+                                      "len": 4294967295,
+                                      "offset": "0x0400000000000000000000000000000000000000000000000000000000000000"
+                                    }
+                                  },
+                                  "name": "elems"
+                                }
+                              ]
+                            }
+                          },
+                          "name": "entries"
+                        }
+                      ]
+                    }
+                  },
+                  "name": "keys"
+                },
+                {
+                  "layout": {
+                    "hash": {
+                      "layout": {
+                        "cell": {
+                          "key": "0x0400000001000000000000000000000000000000000000000000000000000000",
+                          "ty": 10
+                        }
+                      },
+                      "offset": "0x0300000001000000000000000000000000000000000000000000000000000000",
+                      "strategy": {
+                        "hasher": "Blake2x256",
+                        "postfix": "",
+                        "prefix": "0x696e6b20686173686d6170"
+                      }
+                    }
+                  },
+                  "name": "values"
+                }
+              ]
+            }
+          },
+          "name": "quote_balance"
+        },
+        {
+          "layout": {
+            "struct": {
+              "fields": [
+                {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "cell": {
+                              "key": "0x0400000001000000000000000000000000000000000000000000000000000000",
+                              "ty": 4
+                            }
+                          },
+                          "name": "header"
+                        },
+                        {
+                          "layout": {
+                            "struct": {
+                              "fields": [
+                                {
+                                  "layout": {
+                                    "cell": {
+                                      "key": "0x0500000001000000000000000000000000000000000000000000000000000000",
+                                      "ty": 5
+                                    }
+                                  },
+                                  "name": "len"
+                                },
+                                {
+                                  "layout": {
+                                    "array": {
+                                      "cellsPerElem": 1,
+                                      "layout": {
+                                        "cell": {
+                                          "key": "0x0500000002000000000000000000000000000000000000000000000000000000",
+                                          "ty": 12
+                                        }
+                                      },
+                                      "len": 4294967295,
+                                      "offset": "0x0600000001000000000000000000000000000000000000000000000000000000"
+                                    }
+                                  },
+                                  "name": "elems"
+                                }
+                              ]
+                            }
+                          },
+                          "name": "entries"
+                        }
+                      ]
+                    }
+                  },
+                  "name": "keys"
+                },
+                {
+                  "layout": {
+                    "hash": {
+                      "layout": {
+                        "cell": {
+                          "key": "0x0600000002000000000000000000000000000000000000000000000000000000",
+                          "ty": 10
+                        }
+                      },
+                      "offset": "0x0500000002000000000000000000000000000000000000000000000000000000",
+                      "strategy": {
+                        "hasher": "Blake2x256",
+                        "postfix": "",
+                        "prefix": "0x696e6b20686173686d6170"
+                      }
+                    }
+                  },
+                  "name": "values"
+                }
+              ]
+            }
+          },
+          "name": "total_traded"
+        },
+        {
+          "layout": {
+            "struct": {
+              "fields": [
+                {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "cell": {
+                              "key": "0x0600000002000000000000000000000000000000000000000000000000000000",
+                              "ty": 4
+                            }
+                          },
+                          "name": "header"
+                        },
+                        {
+                          "layout": {
+                            "struct": {
+                              "fields": [
+                                {
+                                  "layout": {
+                                    "cell": {
+                                      "key": "0x0700000002000000000000000000000000000000000000000000000000000000",
+                                      "ty": 5
+                                    }
+                                  },
+                                  "name": "len"
+                                },
+                                {
+                                  "layout": {
+                                    "array": {
+                                      "cellsPerElem": 1,
+                                      "layout": {
+                                        "cell": {
+                                          "key": "0x0700000003000000000000000000000000000000000000000000000000000000",
+                                          "ty": 13
+                                        }
+                                      },
+                                      "len": 4294967295,
+                                      "offset": "0x0800000002000000000000000000000000000000000000000000000000000000"
+                                    }
+                                  },
+                                  "name": "elems"
+                                }
+                              ]
+                            }
+                          },
+                          "name": "entries"
+                        }
+                      ]
+                    }
+                  },
+                  "name": "keys"
+                },
+                {
+                  "layout": {
+                    "hash": {
+                      "layout": {
+                        "cell": {
+                          "key": "0x0800000003000000000000000000000000000000000000000000000000000000",
+                          "ty": 15
+                        }
+                      },
+                      "offset": "0x0700000003000000000000000000000000000000000000000000000000000000",
+                      "strategy": {
+                        "hasher": "Blake2x256",
+                        "postfix": "",
+                        "prefix": "0x696e6b20686173686d6170"
+                      }
+                    }
+                  },
+                  "name": "values"
+                }
+              ]
+            }
+          },
+          "name": "nft_deposits"
+        },
+        {
+          "layout": {
+            "struct": {
+              "fields": [
+                {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "cell": {
+                              "key": "0x0800000003000000000000000000000000000000000000000000000000000000",
+                              "ty": 4
+                            }
+                          },
+                          "name": "header"
+                        },
+                        {
+                          "layout": {
+                            "struct": {
+                              "fields": [
+                                {
+                                  "layout": {
+                                    "cell": {
+                                      "key": "0x0900000003000000000000000000000000000000000000000000000000000000",
+                                      "ty": 5
+                                    }
+                                  },
+                                  "name": "len"
+                                },
+                                {
+                                  "layout": {
+                                    "array": {
+                                      "cellsPerElem": 1,
+                                      "layout": {
+                                        "cell": {
+                                          "key": "0x0900000004000000000000000000000000000000000000000000000000000000",
+                                          "ty": 16
+                                        }
+                                      },
+                                      "len": 4294967295,
+                                      "offset": "0x0a00000003000000000000000000000000000000000000000000000000000000"
+                                    }
+                                  },
+                                  "name": "elems"
+                                }
+                              ]
+                            }
+                          },
+                          "name": "entries"
+                        }
+                      ]
+                    }
+                  },
+                  "name": "keys"
+                },
+                {
+                  "layout": {
+                    "hash": {
+                      "layout": {
+                        "cell": {
+                          "key": "0x0a00000004000000000000000000000000000000000000000000000000000000",
+                          "ty": 17
+                        }
+                      },
+                      "offset": "0x0900000004000000000000000000000000000000000000000000000000000000",
+                      "strategy": {
+                        "hasher": "Blake2x256",
+                        "postfix": "",
+                        "prefix": "0x696e6b20686173686d6170"
+                      }
+                    }
+                  },
+                  "name": "values"
+                }
+              ]
+            }
+          },
+          "name": "asks"
+        },
+        {
+          "layout": {
+            "struct": {
+              "fields": [
+                {
+                  "layout": {
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "cell": {
+                              "key": "0x0a00000004000000000000000000000000000000000000000000000000000000",
+                              "ty": 4
+                            }
+                          },
+                          "name": "header"
+                        },
+                        {
+                          "layout": {
+                            "struct": {
+                              "fields": [
+                                {
+                                  "layout": {
+                                    "cell": {
+                                      "key": "0x0b00000004000000000000000000000000000000000000000000000000000000",
+                                      "ty": 5
+                                    }
+                                  },
+                                  "name": "len"
+                                },
+                                {
+                                  "layout": {
+                                    "array": {
+                                      "cellsPerElem": 1,
+                                      "layout": {
+                                        "cell": {
+                                          "key": "0x0b00000005000000000000000000000000000000000000000000000000000000",
+                                          "ty": 13
+                                        }
+                                      },
+                                      "len": 4294967295,
+                                      "offset": "0x0c00000004000000000000000000000000000000000000000000000000000000"
+                                    }
+                                  },
+                                  "name": "elems"
+                                }
+                              ]
+                            }
+                          },
+                          "name": "entries"
+                        }
+                      ]
+                    }
+                  },
+                  "name": "keys"
+                },
+                {
+                  "layout": {
+                    "hash": {
+                      "layout": {
+                        "cell": {
+                          "key": "0x0c00000005000000000000000000000000000000000000000000000000000000",
+                          "ty": 10
+                        }
+                      },
+                      "offset": "0x0b00000005000000000000000000000000000000000000000000000000000000",
+                      "strategy": {
+                        "hasher": "Blake2x256",
+                        "postfix": "",
+                        "prefix": "0x696e6b20686173686d6170"
+                      }
+                    }
+                  },
+                  "name": "values"
+                }
+              ]
+            }
+          },
+          "name": "asks_by_token"
+        },
+        {
+          "layout": {
+            "cell": {
+              "key": "0x0c00000005000000000000000000000000000000000000000000000000000000",
+              "ty": 11
+            }
+          },
+          "name": "last_ask_id"
+        }
+      ]
+    }
+  },
+  "types": [
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "type": 2,
+              "typeName": "[u8; 32]"
+            }
+          ]
+        }
+      },
+      "path": [
+        "ink_env",
+        "types",
+        "AccountId"
+      ]
+    },
+    {
+      "def": {
+        "array": {
+          "len": 32,
+          "type": 3
+        }
+      }
+    },
+    {
+      "def": {
+        "primitive": "u8"
+      }
+    },
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "name": "last_vacant",
+              "type": 5,
+              "typeName": "Index"
+            },
+            {
+              "name": "len",
+              "type": 5,
+              "typeName": "u32"
+            },
+            {
+              "name": "len_entries",
+              "type": 5,
+              "typeName": "u32"
+            }
+          ]
+        }
+      },
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "Header"
+      ]
+    },
+    {
+      "def": {
+        "primitive": "u32"
+      }
+    },
+    {
+      "def": {
+        "variant": {
+          "variants": [
+            {
+              "fields": [
+                {
+                  "type": 9,
+                  "typeName": "VacantEntry"
+                }
+              ],
+              "name": "Vacant"
+            },
+            {
+              "fields": [
+                {
+                  "type": 7,
+                  "typeName": "T"
+                }
+              ],
+              "name": "Occupied"
+            }
+          ]
+        }
+      },
+      "params": [
+        7
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "Entry"
+      ]
+    },
+    {
+      "def": {
+        "tuple": [
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "def": {
+        "primitive": "u64"
+      }
+    },
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "name": "next",
+              "type": 5,
+              "typeName": "Index"
+            },
+            {
+              "name": "prev",
+              "type": 5,
+              "typeName": "Index"
+            }
+          ]
+        }
+      },
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "VacantEntry"
+      ]
+    },
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "name": "value",
+              "type": 11,
+              "typeName": "V"
+            },
+            {
+              "name": "key_index",
+              "type": 5,
+              "typeName": "KeyIndex"
+            }
+          ]
+        }
+      },
+      "params": [
+        11
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "hashmap",
+        "ValueEntry"
+      ]
+    },
+    {
+      "def": {
+        "primitive": "u128"
+      }
+    },
+    {
+      "def": {
+        "variant": {
+          "variants": [
+            {
+              "fields": [
+                {
+                  "type": 9,
+                  "typeName": "VacantEntry"
+                }
+              ],
+              "name": "Vacant"
+            },
+            {
+              "fields": [
+                {
+                  "type": 8,
+                  "typeName": "T"
+                }
+              ],
+              "name": "Occupied"
+            }
+          ]
+        }
+      },
+      "params": [
+        8
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "Entry"
+      ]
+    },
+    {
+      "def": {
+        "variant": {
+          "variants": [
+            {
+              "fields": [
+                {
+                  "type": 9,
+                  "typeName": "VacantEntry"
+                }
+              ],
+              "name": "Vacant"
+            },
+            {
+              "fields": [
+                {
+                  "type": 14,
+                  "typeName": "T"
+                }
+              ],
+              "name": "Occupied"
+            }
+          ]
+        }
+      },
+      "params": [
+        14
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "Entry"
+      ]
+    },
+    {
+      "def": {
+        "tuple": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "name": "value",
+              "type": 1,
+              "typeName": "V"
+            },
+            {
+              "name": "key_index",
+              "type": 5,
+              "typeName": "KeyIndex"
+            }
+          ]
+        }
+      },
+      "params": [
+        1
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "hashmap",
+        "ValueEntry"
+      ]
+    },
+    {
+      "def": {
+        "variant": {
+          "variants": [
+            {
+              "fields": [
+                {
+                  "type": 9,
+                  "typeName": "VacantEntry"
+                }
+              ],
+              "name": "Vacant"
+            },
+            {
+              "fields": [
+                {
+                  "type": 11,
+                  "typeName": "T"
+                }
+              ],
+              "name": "Occupied"
+            }
+          ]
+        }
+      },
+      "params": [
+        11
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "stash",
+        "Entry"
+      ]
+    },
+    {
+      "def": {
+        "composite": {
+          "fields": [
+            {
+              "name": "value",
+              "type": 18,
+              "typeName": "V"
+            },
+            {
+              "name": "key_index",
+              "type": 5,
+              "typeName": "KeyIndex"
+            }
+          ]
+        }
+      },
+      "params": [
+        18
+      ],
+      "path": [
+        "ink_storage",
+        "collections",
+        "hashmap",
+        "ValueEntry"
+      ]
+    },
+    {
+      "def": {
+        "tuple": [
+          8,
+          8,
+          8,
+          11,
+          1
+        ]
+      }
+    }
+  ]
+}
