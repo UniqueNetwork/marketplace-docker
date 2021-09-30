@@ -1,7 +1,7 @@
 [submodule "ui"]
 	path = ui
 	url = https://github.com/usetech-llc/marketplace.git
-	branch = develop
+	branch = v0.1-light
 [submodule "web-api"]
 	path = web-api
 	url = https://github.com/UniqueNetwork/unique-marketplace-api/
