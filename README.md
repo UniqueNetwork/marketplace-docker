@@ -30,7 +30,7 @@ As a result you should see that little icon in the top right corner:
 
 Click on the Polkadot{.js} extension icon and select “create new account” in the menu:
 
-![Create Admin Address](/doc/step2-1.png | width=200)
+<img src="/doc/step2-1.png" width="200">
 
 You should write down the 12-word mnemonic seed on the paper. Do not share it with anybody because this 12-word phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
