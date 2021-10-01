@@ -162,7 +162,7 @@ UNIQUE_SUBSTRATE_API='wss://testnet2.uniquenetwork.io'
 **Optional**: You can pre-pull docker images before you start:
 
 ```
-docker pull postgres:latest
+docker pull postgres:13.4
 docker pull node:latest
 docker pull ubuntu:18.04
 ```
