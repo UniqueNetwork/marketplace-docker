@@ -56,7 +56,7 @@ Copy your account address from Polkadot{.js} extension and send it to the faucet
 
 ![Deploy Marketplace Smart Contract](/doc/step4-2.png)
 
-4. Give the contract 100 Unique coins in Endowment so that it can pay for storing its data, click Deploy (and follow signing transaction):
+4. Give the contract 300 Unique coins in Endowment so that it can pay for storing its data, click Deploy (and follow signing transaction):
 
 ![Deploy Marketplace Smart Contract](/doc/step4-3.png)
 
