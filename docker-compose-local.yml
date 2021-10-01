@@ -3,7 +3,7 @@ version: "3"
 services:
   market_db:
     container_name: market_db
-    image: postgres
+    image: postgres:13.4
     env_file:
       - ./.env
     environment:
