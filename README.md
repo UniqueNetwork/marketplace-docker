@@ -173,6 +173,8 @@ Execute the following command in the terminal and wait for it to finish:
 docker-compose -f docker-compose-local.yml up -d --build
 ```
 
+> ⚠️ Do not run multiple copies of the market with the same admin address. You may encounter errors and incorrect behavior.
+
 ## Step 9 - Enjoy!
 
 Open [http://localhost:3000] in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”:
