@@ -48,7 +48,7 @@ Copy your account address from Polkadot{.js} extension and send it to the faucet
 
 1. Download [matcher.wasm](/doc/matcher.wasm) and [metadata.json](/doc/metadata.json) files
 
-2. Open Polkadot Apps UI on the Contracts page: (https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts)[https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts]
+2. Open Polkadot Apps UI on the Contracts page: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts)
 
 ![Deploy Marketplace Smart Contract](/doc/step4-1.png)
 
@@ -175,7 +175,7 @@ docker-compose -f docker-compose-local.yml up -d --build
 
 ## Step 9 - Enjoy!
 
-Open [http://localhost:3000] in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”:
+Open [localhost:3000](http://localhost:3000) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”:
 
 ![Deploy Marketplace Smart Contract](/doc/step9-1.png)
 
