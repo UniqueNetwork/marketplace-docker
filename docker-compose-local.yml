@@ -31,7 +31,7 @@ services:
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - ADMIN_SEED=${ADMIN_SEED}
-      - MatcherContractAddress=${MatcherContractAddress}
+      - MATCHER_CONTRACT_ADDRESS=${MATCHER_CONTRACT_ADDRESS}
     networks:
       - marketnet
     depends_on:
