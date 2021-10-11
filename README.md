@@ -101,8 +101,8 @@ POSTGRES_USER=marketplace
 POSTGRES_PASSWORD=12345
 ADMIN_SEED=
 MarketplaceUniqueAddress=
-MatcherContractAddress=
-UniqueEndpoint=wss://testnet2.uniquenetwork.io
+MATCHER_CONTRACT_ADDRESS=
+UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
 ```
 
 2. Edit the .env file:
@@ -111,7 +111,7 @@ UniqueEndpoint=wss://testnet2.uniquenetwork.io
 
     <img src="/doc/step6-1.png" width="200">
 
-  * Change MatcherContractAddress value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
+  * Change MATCHER_CONTRACT_ADDRESS value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
     <img src="/doc/step6-2.png" width="400">
 
