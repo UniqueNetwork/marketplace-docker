@@ -100,17 +100,13 @@ POSTGRES_DB=marketplace_db
 POSTGRES_USER=marketplace
 POSTGRES_PASSWORD=12345
 ADMIN_SEED=
-MarketplaceUniqueAddress=
 MATCHER_CONTRACT_ADDRESS=
 UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
+COMMISSION=10
 ```
 
 2. Edit the .env file:
   * Change ADMIN_SEED to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
-  * Change MarketplaceUniqueAddress value to the address that you have copied from Polkadot{.js} extension:
-
-    <img src="/doc/step6-1.png" width="200">
-
   * Change MATCHER_CONTRACT_ADDRESS value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
     <img src="/doc/step6-2.png" width="400">
