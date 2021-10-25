@@ -1,11 +1,11 @@
 [submodule "ui"]
 	path = ui
 	url = https://github.com/UniqueNetwork/unique-marketplace/
-	branch = v0.1-light
+	branch = v1.2.0
 [submodule "web-api"]
 	path = web-api
 	url = https://github.com/UniqueNetwork/unique-marketplace-api/
-	tag = v0.1-light
+	tag = v0.3
 [submodule "escrow-unique"]
 	path = escrow-unique
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow/
@@ -13,4 +13,4 @@
 [submodule "escrow-kusama"]
 	path = escrow-kusama
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow-kusama/
-	tag = v0.3
+	tag = v0.4
