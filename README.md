@@ -50,6 +50,16 @@ Copy your account address from Polkadot{.js} extension and send it to the faucet
 
 2. Open Polkadot Apps UI on the Contracts page: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts)
 
+> ⚠️ The current version of polkadot-js/apps contains an error that does not allow the contract to be deployed. As temporary solution you could run your own version of polkadot-js/apps.
+> ```
+> git clone git@github.com:polkadot-js/apps.git
+> cd ./apps
+> git checkout tags/v0.96.1
+> yarn && yarn start
+> ```
+>
+> Now open http://localhost:3000/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts and follow the instruction
+
 ![Deploy Marketplace Smart Contract](/doc/step4-1.png)
 
 3. Click on Upload & deploy code button, select metadata.json and then matcher.wasm files you have downloaded previously in the form fields like this and click “Next”:
@@ -103,6 +113,7 @@ ADMIN_SEED=
 MATCHER_CONTRACT_ADDRESS=
 UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
 COMMISSION=10
+DISABLE_SECURITY=true
 ```
 
 2. Edit the .env file:
