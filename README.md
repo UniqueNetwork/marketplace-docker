@@ -103,6 +103,7 @@ ADMIN_SEED=
 MATCHER_CONTRACT_ADDRESS=
 UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
 COMMISSION=10
+DISABLE_SECURITY=true
 ```
 
 2. Edit the .env file:
