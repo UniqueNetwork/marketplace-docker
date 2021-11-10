@@ -9,8 +9,8 @@
 [submodule "escrow-unique"]
 	path = escrow-unique
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow/
-	tag = v0.4
+	tag = v0.5
 [submodule "escrow-kusama"]
 	path = escrow-kusama
 	url = https://github.com/UniqueNetwork/unique-marketplace-escrow-kusama/
-	tag = v0.5
+	tag = v0.6
