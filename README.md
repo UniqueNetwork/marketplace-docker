@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/static/logo.svg" alt="Unique White Label Market">
+    <img src="/doc/logo-white.svg" alt="Unique White Label Market">
 </div>
 
 # Marketplace Deployment
