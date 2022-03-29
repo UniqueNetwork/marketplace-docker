@@ -83,11 +83,11 @@ You’re all set with the matcher contract!
 
 Open the terminal and execute the following command:
 
-```
-git clone https://github.com/UniqueNetwork/marketplace-docker
-cd marketplace-docker
-git checkout feature/easy_start
-git submodule update --init --recursive --remote
+```shell
+$ git clone https://github.com/UniqueNetwork/marketplace-docker
+$ cd marketplace-docker
+$ git checkout feature/easy_start
+$ git submodule update --init --recursive --remote
 ```
 
 ## Step 6 - Configure backend (.env file)
@@ -95,20 +95,20 @@ In this step we will configure the marketplace backend with your administrator a
 
 1. Create .env file in the root of marketplace-docker project and paste the following content in there:
 
-```
-POSTGRES_DB=marketplace_db
-POSTGRES_USER=marketplace
-POSTGRES_PASSWORD=12345
-ADMIN_SEED=
-MATCHER_CONTRACT_ADDRESS=
-UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
-COMMISSION=10
-DISABLE_SECURITY=true
+```dotenv
+  POSTGRES_DB=marketplace_db
+  POSTGRES_USER=marketplace
+  POSTGRES_PASSWORD=12345
+  ADMIN_SEED=
+  MATCHER_CONTRACT_ADDRESS=
+  UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
+  COMMISSION=10
+  DISABLE_SECURITY=true
 ```
 
 2. Edit the .env file:
-  * Change ADMIN_SEED to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
-  * Change MATCHER_CONTRACT_ADDRESS value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
+  * Change `ADMIN_SEED` to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
+  * Change `MATCHER_CONTRACT_ADDRESS` value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
 
     <img src="/doc/step6-2.png" width="400">
 
@@ -124,50 +124,50 @@ In this step we will configure the marketplace frontend with your administrator 
 
 1. Create an empty .env file in the ui/packages/apps folder and copy the following content in there:
 
-```
-CAN_ADD_COLLECTIONS=false
-CAN_CREATE_COLLECTION=false
-CAN_CREATE_TOKEN=false
-CAN_EDIT_COLLECTION=false
-CAN_EDIT_TOKEN=false
-COMMISSION=10
-CONTRACT_ADDRESS=''
-DECIMALS=6
-ESCROW_ADDRESS=''
-FAVICON_PATH='favicons/marketplace'
-KUSAMA_DECIMALS=12
-MAX_GAS=1000000000000
-MIN_PRICE=0.000001
-MIN_TED_COLLECTION=1
-QUOTE_ID=2
-SHOW_MARKET_ACTIONS=true
-VALUE=0
-VAULT_ADDRESS=""
-WALLET_MODE=false
-WHITE_LABEL_URL='http://localhost'
-UNIQUE_COLLECTION_IDS=23,25
-UNIQUE_API='http://localhost:5000'
-UNIQUE_SUBSTRATE_API='wss://testnet2.uniquenetwork.io'
+```dotenv
+  CAN_ADD_COLLECTIONS=false
+  CAN_CREATE_COLLECTION=false
+  CAN_CREATE_TOKEN=false
+  CAN_EDIT_COLLECTION=false
+  CAN_EDIT_TOKEN=false
+  COMMISSION=10
+  CONTRACT_ADDRESS=''
+  DECIMALS=6
+  ESCROW_ADDRESS=''
+  FAVICON_PATH='favicons/marketplace'
+  KUSAMA_DECIMALS=12
+  MAX_GAS=1000000000000
+  MIN_PRICE=0.000001
+  MIN_TED_COLLECTION=1
+  QUOTE_ID=2
+  SHOW_MARKET_ACTIONS=true
+  VALUE=0
+  VAULT_ADDRESS=""
+  WALLET_MODE=false
+  WHITE_LABEL_URL='http://localhost'
+  UNIQUE_COLLECTION_IDS=23,25
+  UNIQUE_API='http://localhost:5000'
+  UNIQUE_SUBSTRATE_API='wss://testnet2.uniquenetwork.io'
 ```
 
-2. Change the value of CONTRACT_ADDRESS to the address of the smart contract that you copied and saved after it’s been deployed
-3. Change the value of ESCROW_ADDRESS to the admin address that you have copied from Polkadot{.js} extension
-4. List the collections you would like the marketplace to handle in UNIQUE_COLLECTION_IDS field separated by command (e.g. this example above will configure the marketplace to handle collection 23, Substrapunks, and 25, Chelobricks).
+2. Change the value of `CONTRACT_ADDRESS` to the address of the smart contract that you copied and saved after it’s been deployed
+3. Change the value of `ESCROW_ADDRESS` to the admin address that you have copied from Polkadot{.js} extension
+4. List the collections you would like the marketplace to handle in `UNIQUE_COLLECTION_IDS` field separated by command (e.g. this example above will configure the marketplace to handle collection 23, Substrapunks, and 25, Chelobricks).
 
 ## Step 8 - Build and run
 
 **Optional**: You can pre-pull docker images before you start:
 
-```
-docker pull postgres:13.4
-docker pull node:latest
-docker pull ubuntu:18.04
+```shell
+$ docker pull postgres:14.1-alpine
+$ docker pull node:latest
+$ docker pull ubuntu:18.04
 ```
 
 Execute the following command in the terminal and wait for it to finish:
 
-```
-docker-compose -f docker-compose-local.yml up -d --build
+```shell
+$ docker-compose -f docker-compose-local.yml up -d --build
 ```
 
 ## Step 9 - Enjoy!
