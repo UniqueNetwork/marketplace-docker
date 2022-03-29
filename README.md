@@ -1,19 +1,24 @@
+<div align="center">
+    <img src="/static/logo.svg" alt="Unique White Label Market">
+</div>
+
 # Marketplace Deployment
 
 Who is this document for:
 
-  * Full stack engineers
-  * IT administrators
+
+> * Full stack engineers
+> * IT administrators
 
 In this tutorial we will install the marketplace locally on a computer or in a virtual machine with Ubuntu OS. The process of installing it in a production environment is the same plus your IT administrator will need to setup the infrastructure (such as domain name, hosting, firewall, nginx, and SSL certificates) so that the server that hosts the marketplace can be accessed by the users on the Internet, like Unique marketplace: [https://unqnft.io](https://unqnft.io).
 
 ## Prerequisites
 
-  * OS: Ubuntu 18.04 or 20.04
-  * docker CE 20.10 or up
-  * docker-compose 1.25 or up
-  * git
-  * Google Chrome Browser
+>  * OS: Ubuntu 18.04 or 20.04
+>  * docker CE 20.10 or up
+>  * docker-compose 1.25 or up
+>  * git
+>  * Google Chrome Browser
 
 ## Step 1 - Install Polkadot{.js} Extension
 
