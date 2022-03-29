@@ -2,7 +2,7 @@
     <img src="/doc/logo-white.svg" alt="Unique White Label Market">
 </div>
 
-[![polkadotjs](https://img.shields.io/badge/unique-network-blue?style=plastic&logo=appveyor)](https://unique.network/)
+[![polkadotjs](https://img.shields.io/badge/unique-network-blue?style=flat-square&logo=appveyor)](https://unique.network/)
 [![polkadotjs](https://img.shields.io/badge/polkadot-js-orange?style=flat-square)](https://polkadot.js.org)
 ![license](https://img.shields.io/badge/License-Apache%202.0-blue?logo=apache&style=flat-square)
 
