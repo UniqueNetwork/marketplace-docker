@@ -30,184 +30,83 @@ In this tutorial we will install the marketplace locally on a computer or in a v
 >  * git
 >  * Google Chrome Browser
 
-## Step 1 - Install Polkadot{.js} Extension
+## Step 1 - Create Escrow Account
 
-Visit [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/) and click on the “Download for Chrome” button. Chrome browser will guide you through the rest of the process.
+An escrow account is a substate address that stores and manages the NFT and Kusama tokens put up for sale.
+The easiest way to create an address is to use the extension [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will get 12-word mnemonic seed phrase, further called `ESCROW_SEED`. Do not share it with anybody because this phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
-![Install Polkadot{.js} Extension](/doc/step1-1.png)
+## Step X - Get QTZ
 
-As a result you should see that little icon in the top right corner:
-
-![Install Polkadot{.js} Extension](/doc/step1-2.png)
+In order to get the marketplace running, you’ll need some QTZ tokens. Now you can buy them on [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT).
 
 
-## Step 2 - Create Admin Address
+## Step X - Deploy Marketplace Smart Contract
 
-Click on the Polkadot{.js} extension icon and select “create new account” in the menu:
+`TODO`
 
-<img src="/doc/step2-1.png" width="400">
+## Step X - Create Sponsored Collection
 
-You should write down the 12-word mnemonic seed on the paper. Do not share it with anybody because this 12-word phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
+You may create collection for your marketplace using [Minter](https://minter-quartz.unique.network). When you create your collection you may find `collection id`
 
-Follow the Polkadot{.js} instructions to complete the account setup.
+![Minter](./doc/Step6-0.png)
 
-## Step 3 - Get Unique
+For now, EVM Marketplace can only work with sponsored collections. You may set sponsorship using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 3 steps:
 
-In order to get the marketplace running, you’ll need some Unique coins. For the TestNet 2.0, it is free. You can get it from the faucet bot on Telegram: [@unique2faucetbot](https://t.me/unique2faucetbot)
+### 1. Set Collection Sponsor
 
-Copy your account address from Polkadot{.js} extension and send it to the faucet bot:
+- Choose `unique` - `setCollectionSponsor`
+- Set the collectionId parameter to the id of the previously created collection
+- Set the admin address created in step 2 as the new sponsor
+- Click `Submit Transaction` and follow the instructions
 
-<img src="/doc/step3-1.png" width="400">
+![setCollectionSponsor](./doc/step6-1.png)
 
-## Step 4 - Deploy Marketplace Smart Contract
+### 2. Confirm Sponsorship
 
-1. Download [matcher.wasm](/doc/matcher.wasm) and [metadata.json](/doc/metadata.json) files
+- Choose `unique` - `confirmSponsorship`
+- Set the admin address created in step 2 as the transaction sender
+- Set the collectionId parameter to the id of the previously created collection
+- Click `Submit Transaction` and follow the instructions
 
-2. Open Polkadot Apps UI on the Contracts page: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftestnet2.unique.network#/contracts)
+![confirmSponsorship](./doc/step6-2.png)
 
-![Deploy Marketplace Smart Contract](/doc/step4-1.png)
+### 3. Transfer QTZ to Sponsor
 
-3. Click on Upload & deploy code button, select metadata.json and then matcher.wasm files you have downloaded previously in the form fields like this and click “Next”:
+To sponsor EVM calls, you will need to transfer some QTZ to the ethereum mirror of your collection sponsor.
 
-![Deploy Marketplace Smart Contract](/doc/step4-2.png)
-
-4. Give the contract 300 Unique coins in Endowment so that it can pay for storing its data, click Deploy (and follow signing transaction):
-
-![Deploy Marketplace Smart Contract](/doc/step4-3.png)
-
-5. When the transaction completes, you should see the green notification bar on the right top and the contract will appear in the “contracts” list:
-
-![Deploy Marketplace Smart Contract](/doc/step4-4.png)
-
-6. Expand “Messages” section and find “SetAdmin” method:
-
-![Deploy Marketplace Smart Contract](/doc/step4-5.png)
-
-7. Click on the “exec” button in front of the setAdmin method and select the marketplace admin address both as the caller (“call from account”) and the parameter (“message to send”). Make sure you've put the same address twice, as shown in the picture.
-Click Execute button and follow with signing this transaction:
-
-![Deploy Marketplace Smart Contract](/doc/step4-6.png)
-
-8. Click on the matcher contract ornament to copy its address for future use:
-
-![Deploy Marketplace Smart Contract](/doc/step4-7.png)
-
-You’re all set with the matcher contract!
-
-## Step 5 - Clone marketplace code from GitHub
-
-Open the terminal and execute the following command:
-
-```shell
-$ git clone https://github.com/UniqueNetwork/marketplace-docker
-$ cd marketplace-docker
-$ git checkout feature/easy_start
-$ git submodule update --init --recursive --remote
+Use a built-in utility to get this address. For the script below, change `<COLLECTION_SPONSOR>` to the admin address from the Step 2, and run it.
+```
+docker exec -ti marketplace-api node sub_to_eth.js <COLLECTION_SPONSOR>
 ```
 
-## Step 6 - Configure backend (.env file)
-In this step we will configure the marketplace backend with your administrator address, seed and the matcher contract address.
+The result will look like this:
 
-1. Create .env file in the root of marketplace-docker project and paste the following content in there:
-
-```dotenv
-  POSTGRES_DB=marketplace_db
-  POSTGRES_USER=marketplace
-  POSTGRES_PASSWORD=12345
-  ADMIN_SEED=
-  MATCHER_CONTRACT_ADDRESS=
-  UNIQUE_WS_ENDPOINT=wss://testnet2.uniquenetwork.io
-  COMMISSION=10
-  DISABLE_SECURITY=true
+```
+Substrate address: 5EC3pKTxGj8ciFp37giawUY1B4aWTAU7aRRK8eA1J8SKNRsf
+Substrate address balance: 9748981663000000000000
+Ethereum mirror: 0x5e125Fd6aA7D06dEEd31475BcE293999a48015B0
+Ethereum mirror balance: 0
+Substrate mirror of ethereum mirror: 5C9rxShqs4vA3dxvesNUfPHRinWfwSeQAkHmaWbVzki84g1y
+Substrate mirror of ethereum mirror balance: 0
 ```
 
-2. Edit the .env file:
-  * Change `ADMIN_SEED` to the 12-word admin mnemonic seed phrase that you have saved when you created the admin address in Polkadot{.js} extension
-  * Change `MATCHER_CONTRACT_ADDRESS` value to the Matcher contract address that you have copied from Apps UI after you have deployed it:
+Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. Now all ethereum transactions will be sponsored from this address.
 
-    <img src="/doc/step6-2.png" width="400">
+## Step X - Configure Marketplace
 
-  * Leave the rest of values intact
+`TODO` envs
 
-As a result you should see a similar content to this:
+## Step X - Build and Run
 
-<img src="/doc/step6-3.png" width="600">
+Execute the following command in the terminal and wait for it to complete:
 
-## Step 7 - Configure frontend (.env file)
-
-In this step we will configure the marketplace frontend with your administrator and the matcher contract addresses, specify what NFT collections you’d like your marketplace to handle, and specify the domain name that it’s going to be hosted on (localhost for the purpose of this example).
-
-1. Create an empty .env file in the ui/packages/apps folder and copy the following content in there:
-
-```dotenv
-  CAN_ADD_COLLECTIONS=false # 
-  CAN_CREATE_COLLECTION=false
-  CAN_CREATE_TOKEN=false
-  CAN_EDIT_COLLECTION=false
-  CAN_EDIT_TOKEN=false
-  COMMISSION=10
-  CONTRACT_ADDRESS=''
-  DECIMALS=6
-  ESCROW_ADDRESS=''
-  FAVICON_PATH='favicons/marketplace'
-  KUSAMA_DECIMALS=12
-  MAX_GAS=1000000000000
-  MIN_PRICE=0.000001
-  MIN_TED_COLLECTION=1
-  QUOTE_ID=2
-  SHOW_MARKET_ACTIONS=true
-  VALUE=0
-  VAULT_ADDRESS=""
-  WALLET_MODE=false
-  WHITE_LABEL_URL='http://localhost'
-  UNIQUE_COLLECTION_IDS=23,25
-  UNIQUE_API='http://localhost:5000'
-  UNIQUE_SUBSTRATE_API='wss://testnet2.uniquenetwork.io'
+```
+docker-compose up -d --build
 ```
 
-2. Change the value of `CONTRACT_ADDRESS` to the address of the smart contract that you copied and saved after it’s been deployed
-3. Change the value of `ESCROW_ADDRESS` to the admin address that you have copied from Polkadot{.js} extension
-4. List the collections you would like the marketplace to handle in `UNIQUE_COLLECTION_IDS` field separated by command (e.g. this example above will configure the marketplace to handle collection 23, Substrapunks, and 25, Chelobricks).
-
-## Step 8 - Build and run
-
-**Optional**: You can pre-pull docker images before you start:
-
-```shell
-$ docker pull postgres:14.1-alpine
-$ docker pull node:latest
-$ docker pull ubuntu:18.04
-```
-
-Execute the following command in the terminal and wait for it to finish:
-
-```shell
-$ docker-compose -f docker-compose-local.yml up -d --build
-```
-
-## Step 9 - Enjoy!
-
-Open [localhost:3000](http://localhost:3000) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”:
-
-![Deploy Marketplace Smart Contract](/doc/step9-1.png)
-
-The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to play:
-
-![Deploy Marketplace Smart Contract](/doc/step9-2.png)
+## Step X - Enjoy
 
 
 ## License Information
 
-Copyright 2021, Unique Network, Usetech Professional
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+`TODO`
