@@ -4,25 +4,25 @@ x-marketplace: &marketplace-backend
   image: docker.io/uniquenetwork/marketplace-backend
   restart: unless-stopped
   environment:
-    POSTGRES_URL: 'postgres://marketplace:12345@postgres:5432/marketplace_db'
-    API_PORT: '5000'
-    DISABLE_SECURITY: 'false'
-    ESCROW_SEED: 'idle measure aware denial heart moment feel gym impact enhance surprise aunt'
-    UNIQUE_WS_ENDPOINT: 'wss://quartz.unique.network'
-    UNIQUE_NETWORK: 'quartz'
-    UNIQUE_START_FROM_BLOCK: 'current'
-    CONTRACT_ETH_OWNER_SEED: '0xac9956c836f9733ffbaa2928ff5a926b07c6d624a9bc07936ee5aa9450015d34'
-    CONTRACT_ADDRESS: '0x3C87F245628FB443f63DccF38D4e18F921A3c2e2'
-    AUCTION_SEED: 'idle measure aware denial heart moment feel gym impact enhance surprise aunt'
-    UNIQUE_COLLECTION_IDS: '5'
-    KUSAMA_WS_ENDPOINT: 'wss://ws-relay-opal.unique.network'
-    KUSAMA_NETWORK: 'private_ksm'
-    KUSAMA_START_FROM_BLOCK: 'current'
-    COMMISSION_PERCENT: '10'
-    AUTO_DB_MIGRATIONS: 'true'
-    SENTRY_ENABLED: 'false'
-#    SENTRY_ENV: production
-#    SENTRY_DSN: https://hash@domain.tld/sentryId
+    ESCROW_SEED: ${ESCROW_SEED}
+    AUCTION_SEED: ${AUCTION_SEED}
+    CONTRACT_ETH_OWNER_SEED: ${CONTRACT_ETH_OWNER_SEED}
+    CONTRACT_ADDRESS: ${CONTRACT_ADDRESS}
+    UNIQUE_COLLECTION_IDS: ${UNIQUE_COLLECTION_IDS}
+    POSTGRES_URL: ${POSTGRES_URL}
+    API_PORT: ${API_PORT}
+    DISABLE_SECURITY: ${DISABLE_SECURITY}
+    UNIQUE_WS_ENDPOINT: ${UNIQUE_WS_ENDPOINT}
+    KUSAMA_WS_ENDPOINT: ${KUSAMA_WS_ENDPOINT}
+    UNIQUE_NETWORK: ${UNIQUE_NETWORK}
+    KUSAMA_NETWORK: ${KUSAMA_NETWORK}
+    COMMISSION_PERCENT: ${COMMISSION_PERCENT}
+    UNIQUE_START_FROM_BLOCK: ${UNIQUE_START_FROM_BLOCK}
+    KUSAMA_START_FROM_BLOCK: ${KUSAMA_START_FROM_BLOCK}
+    AUTO_DB_MIGRATIONS: ${AUTO_DB_MIGRATIONS}
+    SENTRY_ENABLED: ${SENTRY_ENABLED}
+#    SENTRY_ENV: ${SENTRY_ENV}
+#    SENTRY_DSN: ${SENTRY_DSN}
   depends_on:
     - postgres
 
