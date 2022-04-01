@@ -11,8 +11,30 @@
 ![license](https://img.shields.io/badge/License-Apache%202.0-blue?logo=apache&style=flat-square)
 
 
+## Table of Contents
 
-# Marketplace Deployment
+- [Marketplace Deployment - Getting Started Guide](#marketplace-deployment---getting-started-guide)
+  - [Prerequisites](#prerequisites)
+  - [Step 1 - Create Escrow Account](#step-1---create-escrow-account)
+    - [Start Configuring](#start-configuring)
+  - [Step 2 - Get QTZ](#step-2---get-qtz)
+  - [Step 3 - Deploy Marketplace Smart Contract](#step-3---deploy-marketplace-smart-contract)
+  - [Step 4 - Create Sponsored Collection](#step-4---create-sponsored-collection)
+    - [1. Set Collection Sponsor](#1-set-collection-sponsor)
+    - [2. Confirm Sponsorship](#2-confirm-sponsorship)
+    - [3. Transfer QTZ to Sponsor](#3-transfer-qtz-to-sponsor)
+    - [4. Configure Marketplace](#4-configure-marketplace)
+  - [Step 5 - Check Configuration](#step-5---check-configuration)
+  - [Step 6 Add Certificate to the Trusted List](#step-6-add-certificate-to-the-trusted-list)
+  - [Step 7 - Build and Run](#step-7---build-and-run)
+  - [Step 8 - Enjoy](#step-8---enjoy)
+- [Advanced Guide](#advanced-guide)
+  - [UI Customization](#ui-customization)
+  - [Microservices](#microservices)
+- [License Information](#license-information)
+
+
+# Marketplace Deployment - Getting Started Guide
 
 Who is this document for:
 
@@ -35,18 +57,16 @@ In this tutorial we will install the marketplace locally on a computer or in a v
 An escrow account is a substate address that manages the NFT and Kusama tokens put up for sale.
 The easiest way to create an address is to use the extension [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will get 12-word mnemonic seed phrase, further called `ESCROW_SEED`. Do not share it with anybody because this phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
-## Step X - Start Configuring
+### Start Configuring
 
 From inside the root directory create `.env` and copy the content of the `.env.sample` there. Set `ESCROW_SEED` to the corresponding variable inside `.env`.
 
-`TODO services inside` 
-
-## Step X - Get QTZ
+## Step 2 - Get QTZ
 
 In order to get the marketplace running, your escrow address need some `TODO how much?` QTZ tokens. Now you can buy them on [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT).
 
 
-## Step X - Deploy Marketplace Smart Contract
+## Step 3 - Deploy Marketplace Smart Contract
 
 There are two ways to put a token up for sale – at a fixed price and through an auction. All fixed price asks go throw special smart contract, which you can explore inside `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
 
@@ -70,13 +90,13 @@ CONTRACT_ADDRESS: '0x74C2d83b868f7E7B7C02B7D0b87C3532a06f392c'
 
 Set the values above to the corresponding variables of `.env` file.
 
-## Step X - Create Sponsored Collection
+## Step 4 - Create Sponsored Collection
 
 You may create collection for your marketplace using [Minter](https://minter-quartz.unique.network). When you create your collection you may find `collection id`
 
 ![Minter](./doc/Step6-0.png)
 
-For now, EVM Marketplace can only work with sponsored collections. You may set sponsorship using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 3 steps:
+For now, EVM Marketplace can only work with sponsored collections. You may set sponsorship using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 4 steps:
 
 ### 1. Set Collection Sponsor
 
@@ -114,8 +134,15 @@ Substrate mirror of ethereum mirror balance: 0
 
 Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. Now all ethereum transactions will be sponsored from this address.
 
+### 4. Configure Marketplace
 
-## Step X - Check Configuration
+Set the list of ids of the created collections in the `.env` file:
+
+```
+UNIQUE_COLLECTION_IDS='3,4,5'
+```
+
+## Step 5 - Check Configuration
 
 Now you can check the configuration to make sure everything is set up.
 
@@ -145,9 +172,11 @@ Collection #3
 ```
 
 Now you're almost done.
-## Set Certificate
+## Step 6 Add Certificate to the Trusted List
 
-## Step X - Build and Run
+To simplify this guide, we provide a self-signed ssl-certificate, you can find it the `nginx/ssl` folder. You should never use this certificate in production, but now you can add it to trusted list for testing purposes. Or you can issue your own ssl-certificate right now.
+
+## Step 7 - Build and Run
 
 Execute the following command in the terminal and wait for it to complete:
 
@@ -155,15 +184,23 @@ Execute the following command in the terminal and wait for it to complete:
 docker-compose up -d
 ```
 
-## Step X - Check Configuration
-
-## Step X - Enjoy
+## Step 8 - Enjoy
 
 Open [localhost](http://localhost:80) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”.
 
 The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to rumble.
 
-## License Information
+# Advanced Guide
+
+## UI Customization
+
+...
+
+## Microservices
+
+...
+
+# License Information
 
 Copyright 2021, Unique Network, Usetech Professional
 
