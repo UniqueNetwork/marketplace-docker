@@ -72,7 +72,80 @@ Set the values above to the corresponding variables of `.env` file.
 
 ## Step X - Create Sponsored Collection
 
-...
+You may create collection for your marketplace using [Minter](https://minter-quartz.unique.network). When you create your collection you may find `collection id`
+
+![Minter](./doc/Step6-0.png)
+
+For now, EVM Marketplace can only work with sponsored collections. You may set sponsorship using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 3 steps:
+
+### 1. Set Collection Sponsor
+
+- Choose `unique` - `setCollectionSponsor` method
+- Set the collectionId parameter to the id of the previously created collection
+- Set the escrow address created in step 1 as the new sponsor
+- Click `Submit Transaction` and follow the instructions
+
+### 2. Confirm Sponsorship
+
+- Choose `unique` - `confirmSponsorship` method
+- Set the escrow address created in step 1 as the transaction sender
+- Set the collectionId parameter to the id of the previously created collection
+- Click `Submit Transaction` and follow the instructions
+
+### 3. Transfer QTZ to Sponsor
+
+To sponsor EVM calls, you will need to transfer some QTZ to the ethereum mirror of your collection sponsor.
+
+Use a built-in utility to get this address. For the script below, change `<COLLECTION_SPONSOR>` to the escrow address from the Step 1, and run it.
+```
+docker exec -ti backend node sub_to_eth.js <COLLECTION_SPONSOR>
+```
+
+The result will look like this:
+
+```
+Substrate address: 5EC3pKTxGj8ciFp37giawUY1B4aWTAU7aRRK8eA1J8SKNRsf
+Substrate address balance: 9748981663000000000000
+Ethereum mirror: 0x5e125Fd6aA7D06dEEd31475BcE293999a48015B0
+Ethereum mirror balance: 0
+Substrate mirror of ethereum mirror: 5C9rxShqs4vA3dxvesNUfPHRinWfwSeQAkHmaWbVzki84g1y
+Substrate mirror of ethereum mirror balance: 0
+```
+
+Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. Now all ethereum transactions will be sponsored from this address.
+
+
+## Step X - Check Configuration
+
+Now you can check the configuration to make sure everything is set up.
+
+```
+docker-compose up -d backend
+docker exec backend node dist/cli.js playground check_configuration
+```
+
+If everything is configured correctly, you will see a bunch of green checkboxes in the console, as shown below:
+
+```
+Checking CONTRACT_ADDRESS
+[v] Contract address valid: 0x3c9931eA16D1048D7e22F3630844EC25eFD6B26f
+[v] Contract balance is 40 tokens (40000000000000000000)
+[v] Contract self-sponsoring is enabled
+[v] Rate limit is zero blocks
+[v] Contract owner valid, owner address: 0x3CA7393F1C8Df383c0f35d7BC1a5a938168c7d4b
+Contract owner balance is 4 tokens (4492008910681246304)
+
+Checking UNIQUE_COLLECTION_IDS
+Collection #3
+  [v] Sponsor is confirmed, yGGxcBQUCymdHtjQUdJDiXDTTXuonGv8HyRJiH5YDUcmfUyhr
+  [v] Sponsor has 999999999948 tokens (999999999948126753000000000000) on its substrate wallet
+  [v] Sponsor has 1000000000 tokens (1000000000000000000000000000) on its ethereum wallet
+  [v] Transfer timeout is zero blocks
+  [v] Approve timeout is zero blocks
+```
+
+Now you're almost done.
+## Set Certificate
 
 ## Step X - Build and Run
 
@@ -82,9 +155,26 @@ Execute the following command in the terminal and wait for it to complete:
 docker-compose up -d
 ```
 
+## Step X - Check Configuration
+
 ## Step X - Enjoy
 
+Open [localhost](http://localhost:80) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”.
+
+The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to rumble.
 
 ## License Information
 
-`TODO`
+Copyright 2021, Unique Network, Usetech Professional
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
