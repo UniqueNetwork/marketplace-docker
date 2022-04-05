@@ -15,17 +15,17 @@
 
 - [Marketplace Deployment - Getting Started Guide](#marketplace-deployment---getting-started-guide)
   - [Prerequisites](#prerequisites)
-  - [Step 1 - Create Escrow Account](#step-1---create-escrow-account)
+  - [Step 1 - Create An Escrow Account](#step-1---create-an-escrow-account)
     - [Start Configuring](#start-configuring)
   - [Step 2 - Get QTZ](#step-2---get-qtz)
-  - [Step 3 - Deploy Marketplace Smart Contract](#step-3---deploy-marketplace-smart-contract)
-  - [Step 4 - Create Sponsored Collection](#step-4---create-sponsored-collection)
+  - [Step 3 - Deploy A Marketplace Smart Contract](#step-3---deploy-a-marketplace-smart-contract)
+  - [Step 4 - Create A Sponsored Collection](#step-4---create-a-sponsored-collection)
     - [1. Set Collection Sponsor](#1-set-collection-sponsor)
     - [2. Confirm Sponsorship](#2-confirm-sponsorship)
     - [3. Transfer QTZ to Sponsors Ethereum Mirror](#3-transfer-qtz-to-sponsors-ethereum-mirror)
-    - [4. Configure Marketplace](#4-configure-marketplace)
+    - [4. Configure The Marketplace](#4-configure-the-marketplace)
   - [Step 5 - Check Configuration](#step-5---check-configuration)
-  - [Step 6 Add Certificate to the Trusted List](#step-6-add-certificate-to-the-trusted-list)
+  - [Step 6 - Add A Certificate to the Trusted List](#step-6-add-a-certificate-to-the-trusted-list)
   - [Step 7 - Build and Run](#step-7---build-and-run)
   - [Step 8 - Enjoy](#step-8---enjoy)
 - [Advanced Guide](#advanced-guide)
@@ -37,9 +37,9 @@
     - [Postgres](#postgres)
     - [Nginx](#nginx)
   - [Sponsoring](#sponsoring)
-  - [Using Private Blockchain](#using-private-blockchain)
+  - [Using A Private Blockchain](#using-a-private-blockchain)
 - [Chats and communities](#chats-and-communities)
-  - [How Update Marketplace](#how-update-marketplace)
+  - [How To Update The Marketplace](#how-to-update-the-marketplace)
 - [License Information](#license-information)
 
 
@@ -51,7 +51,7 @@ Who is this document for:
 > * Full stack engineers
 > * IT administrators
 
-In this tutorial we will install the marketplace locally on a computer or in a virtual machine with Ubuntu OS. The process of installing it in a production environment is the same plus your IT administrator will need to setup the infrastructure (such as domain name, hosting, firewall, nginx, and SSL certificates) so that the server that hosts the marketplace can be accessed by the users on the Internet, like Unique marketplace: [https://unqnft.io](https://unqnft.io).
+This tutorial shows the steps that need to be performed to carry out an install of the marketplace on a computer in a local environment or in a virtual machine with Ubuntu OS. The process of installing it in a production environment is identical, with the caveat that your IT administrator will need to setup the supporting infrastructure (such as a globally accessible domain name, hosting, firewall, nginx, and SSL certificates) so that the server that hosts the marketplace can be accessed by the users on the Internet. Visit [https://unqnft.io](https://unqnft.io) to experience an example of a self-hosted, globally accessible marketplace.
 
 ## Prerequisites
 
@@ -61,33 +61,35 @@ In this tutorial we will install the marketplace locally on a computer or in a v
 >  * git
 >  * Google Chrome Browser
 
-## Step 1 - Create Escrow Account
+## Step 1 - Create An Escrow Account
 
-An escrow account is a substate address that manages the NFT and Kusama tokens put up for sale.
-The easiest way to create an address is to use the extension [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will get 12-word mnemonic seed phrase, further called `ESCROW_SEED`. 
-> :warning: Do not share it with anybody because this phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
+An escrow account is a substrate address that manages the NFT and Kusama tokens put up for sale.
+The easiest way to create such an address is to use the browser wallet extension available at [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will be provided with a 12-word mnemonic seed phrase, further referred to in the text as `ESCROW_SEED`. 
+> :warning: Do not share the mnemonic phrase with anybody as this phrase is all that’s needed for someone to obtain access to the funds and NFTs that are stored on this account.
+
+> :warning: Note down the address of the newly created account. It will be used in the upcoming steps and will be referred to as the `ESCROW_ADDRESS`.
 
 ### Start Configuring
 
-From inside the root directory create `.env` and copy the content of the `.env.sample` there. Set `ESCROW_SEED` to the corresponding variable inside `.env`.
+From within the root directory create a fresh `.env` file and copy the entire contents of the `.env.sample` into it. Set the corresponding variable in the `.env` file to the `ESCROW_SEED` phrase we obtained above.
 
 ## Step 2 - Get QTZ
 
-In order to get the marketplace running, your escrow address need some QTZ tokens. The minimum amount for launching marketplace is around 80 QTZ, but if you going to run it in production now, it will be better to get more QTZ in advance – 1000 should be ok. Now you can buy them on [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT).
+In order to get the marketplace running, the escrow address needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 80 QTZ. For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
 
 
-## Step 3 - Deploy Marketplace Smart Contract
+## Step 3 - Deploy A Marketplace Smart Contract
 
-There are two ways to put a token up for sale – at a fixed price and through an auction. All fixed price asks go throw special smart contract, which you can explore inside `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
+There are two ways to put a token up for sale – at a fixed price or through an auction. All fixed price asks get handled via a special smart contract which can be  explored in the `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
 
-We also provide a special utility that is the easiest way to deploy your smart contract. In order to use it you should have QTZ on your escrow account. The following script will create the ethereum address, deploy smart contract, set the ethereum calls sponsor, and send him some QTZ:
+A special utility is provided that is by far the easiest way to deploy a smart contract. Take note, there will need to be some QTZ in the escrow account to ensure a successful execution of the utility. The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it some QTZ:
 
 ```
 docker-compose up -d backend
 docker exec backend node dist/cli.js playground deploy_contract
 ```
 
-After a short interval you should get an operational summary output in the terminal:
+After a short interval an operational summary will be output to the terminal:
 
 ```
 ...
@@ -102,46 +104,46 @@ Substrate mirror of contract address (for balances): 5F2NmgKvWHYZBTCoXVgkJay3sBE
 Current contract balance: 40000000000000000000
 ```
 
-Set the values above to the corresponding variables of `.env` file.
+The actual output content will differ to the one above and will correspond to the data set in the variables of the `.env` file.
 
-> :warning: **You should never share your `CONTRACT_ETH_OWNER_SEED` or commit it in your git repository** because this is all that’s needed to get access to the money and NFTs that are stored on the sale. Keep it safe place!
+> :warning: **Never share your `CONTRACT_ETH_OWNER_SEED` or commit it in the git repository** because this data is all that is needed for someone to obtain access to the funds and NFTs that are stored on the sale. Keep it in a safe and inaccessible place!
 
-> :warning: You should remember `Substrate mirror of contract address`, because later all contract calls will be sponsored by it. So don't forget to keep some QTZ balance there
+> :warning: Take note of the `Substrate mirror of contract address` and have it handy as later on all contract calls will be sponsored by it. Also, don't forget to deposit some QTZ balance to the account as well.
 
-## Step 4 - Create Sponsored Collection
+## Step 4 - Create A Sponsored Collection
 
-You may create collection for your marketplace using [Minter](https://minter-quartz.unique.network). When you create your collection you may find `collection id`
+The simplest way create collection for a marketplace is using the [Minter](https://minter-quartz.unique.network) tool. Note down the `collection id` during the creation process as it will come in handy later on in the steps that follow.
 
 ![Minter](./doc/Step6-0.png)
 
-For now, EVM Marketplace can only work with sponsored collections. You may set sponsorship using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 4 steps:
+For now, the EVM Marketplace can only work with sponsored collections. A sponsorship can be set up using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 4 steps, as follows:
 
 ### 1. Set Collection Sponsor
 
 - Choose `unique` - `setCollectionSponsor` method
-- Set the collectionId parameter to the id of the previously created collection
-- Set the escrow address created in step 1 as the new sponsor
+- Set the collectionId parameter to the id of the newly created collection
+- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the new sponsor
 - Click `Submit Transaction` and follow the instructions
 
-> :warning: You should remember this address, because later all transfers to substrate addresses, including your escrow account, will be sponsored by it. So don't forget to keep some QTZ balance there.
+> :warning: Take note of the address and have it handy as later on all transfers to substrate addresses, including the escrow account, will be sponsored by it. Don't forget to make sure there is some QTZ in the account.
 
 ### 2. Confirm Sponsorship
 
 - Choose `unique` - `confirmSponsorship` method
-- Set the escrow address created in step 1 as the transaction sender
-- Set the collectionId parameter to the id of the previously created collection
+- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Set the collectionId parameter to the id of the newly created collection
 - Click `Submit Transaction` and follow the instructions
 
 ### 3. Transfer QTZ to Sponsors Ethereum Mirror
 
-To sponsor EVM calls, you will need to transfer some QTZ to the ethereum mirror of your collection sponsor.
+To sponsor EVM calls, some QTZ need to be transferred to the ethereum mirror of the collection sponsor.
 
-Use a built-in utility to get this address. For the script below, change `<COLLECTION_SPONSOR>` to the escrow address from the Step 1, and run it.
+Use a built-in utility to obtain this address. In the script below, change `<COLLECTION_SPONSOR>` to the [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account), and run it.
 ```
 docker exec -ti backend node sub_to_eth.js <COLLECTION_SPONSOR>
 ```
 
-The result will look like this:
+The result should look similar to this output:
 
 ```
 Substrate address: 5EC3pKTxGj8ciFp37giawUY1B4aWTAU7aRRK8eA1J8SKNRsf
@@ -152,11 +154,11 @@ Substrate mirror of ethereum mirror: 5C9rxShqs4vA3dxvesNUfPHRinWfwSeQAkHmaWbVzki
 Substrate mirror of ethereum mirror balance: 0
 ```
 
-Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. Now all ethereum transactions will be sponsored from this address.
+Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. From here on, all ethereum transactions will be sponsored from this address.
 
-> :warning: You should remember this address, because later all transfers to ethereum addresses, including your contact address, will be sponsored by it. So don't forget to keep some QTZ balance there.
+> :warning: Note down this address, as later on all transfers to the ethereum addresses, including the contact address, will be sponsored by it. Have some a small amount of QTZ on balance at this address.
 
-### 4. Configure Marketplace
+### 4. Configure The Marketplace
 
 Set the list of ids of the created collections in the `.env` file:
 
@@ -166,14 +168,14 @@ UNIQUE_COLLECTION_IDS='3,4,5'
 
 ## Step 5 - Check Configuration
 
-Now you can check the configuration to make sure everything is set up.
+There is a handy utility that will run a check to test if everything is set properly up. To use it execute the script below:
 
 ```
 docker-compose up -d backend
 docker exec backend node dist/cli.js playground check_config
 ```
 
-If everything is configured correctly, you will see a bunch of green checkboxes in the console, as shown below:
+If everything is configured correctly, a bunch of green checkboxes will get ticked in the console, as shown below:
 
 ```
 Checking CONTRACT_ADDRESS
@@ -193,10 +195,11 @@ Collection #3
   [v] Approve timeout is zero blocks
 ```
 
-Now you're almost done.
-## Step 6 Add Certificate to the Trusted List
+At this point, the setup is almost done.
 
-To simplify this guide, we provide a self-signed ssl-certificate, you can find it the `nginx/ssl` folder. You should never use this certificate in production, but now you can add it to trusted list for testing purposes. Or you can issue your own ssl-certificate right now.
+## Step 6 Add A Certificate to the Trusted List
+
+To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. You will need to add this certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
 
 ## Step 7 - Build and Run
 
@@ -208,9 +211,9 @@ docker-compose up -d
 
 ## Step 8 - Enjoy
 
-Open [https://localhost](http://localhost:80) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”.
+Open [https://localhost](http://localhost:80) in your Chrome browser. On first launch a Polkadot{.js}’s request to authorize the website will pop-up. Approve this request.
 
-The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to rumble.
+The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to rumble. 
 
 # Advanced Guide
 
@@ -218,7 +221,7 @@ The marketplace will connect to the blockchain and the local backend and will di
 
 [GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-frontend#readme) 
 
-If you want to customize the UI and still be able to receive updates from Unique team – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
+If you want to customize the UI and still be able to receive updates from team Unique – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
 
 ## Backend
 
@@ -228,17 +231,17 @@ If you want to customize the UI and still be able to receive updates from Unique
 
 #### Playgrounds
 
-We provide some tools you may want to use while configuring and exploiting your marketplace right inside marketplace API. If you have completed a getting started guide you already used some of them when you [deployed smart contract](#step-3---deploy-marketplace-smart-contract) and [checked marketplace configuration](#step-5---check-configuration).
+There are some tools that you may come in handy when configuring and exploiting the marketplace that are a part of the marketplace API. In the process of setting up the marketplace some of them were used in the [deploying a smart contract](#step-3---deploy-a-marketplace-smart-contract) and [checkeing the marketplace configuration](#step-5---check-configuration) steps.
 
-You may find information about all provided playgrounds in the marketplace docs.
-
+All the information about these playgrounds utilities can be found in the marketplace [docs](https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.1.0#readme). Feel free to dive into the deep end of the pool.
 
 ### Unique Escrow and Kusama Escrow
 
-These two crowlers are part of unique-marketplace-api project, and do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace, such as the transfer of NFTs or Kusama tokens to the account address.
+These two crowlers are part of unique-marketplace-api project, and do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace such as the transfer of NFTs or Kusama tokens to the account address.
+
 ### Postgres
 
-You can configure your postgres by changing the environment variables inside your `.env` file. The default settings are already included in the `.env.sample` file.
+Postgres can be configured by changing the environment variables inside the `.env` file. The default settings are already provided in the `.env.sample` file.
 
 ### Nginx
 
@@ -249,26 +252,28 @@ You can configure your postgres by changing the environment variables inside you
 
 [Main article](https://docs.unique.network/unique-and-quartz-wiki/build/reference/sponsoring-and-fees)
 
-> The Unique Network allows sponsoring user transactions for NFT, Fungible, and Refungible collections and smart contracts. When collection (or smart contract) is sponsored, all their users need is to have the Unique wallet and address, but they don’t need to have any QTZ or UNQ balance on the wallet. This feature removes the extra friction for the end user and creates nice flawless user experience.
+> The Unique Network allows sponsoring of user transactions for NFT, Fungible, and Refungible collections and smart contracts. When a collection (or a smart contract) is sponsored, the only thing the sponsored users need to have is a Unique wallet and an address. There is no requirement to have any QTZ or UNQ on balance in the wallet on their part. This feature removes the extra friction for the end user and creates nice, flawless user experience for the brand new user in the unique chain.
 
-It is always worth remembering that the sponsor accounts should have a balance of QTZ in order to be able provide users transactions.
+However, it is always worth remembering that the sponsor accounts should have a balance of QTZ in order to be able provide for the sponsored user transactions.
 
-The full list of your marketplace sponsors:
+The full list of appearance of the marketplace sponsors:
 
-- Contract sponsor. You have got it on [step 3](#step-3---deploy-marketplace-smart-contract) of the getting started guide
-- Collection sponsor for Substrate transfers. You assigned it at [step 4.1](#1-set-collection-sponsor) of the getting started guide
-- Collection sponsor for Ethereum transfers. It's an ethereum mirror of Substrate collection sponsor. You sent QTZ to it at [step 4.3](#1-set-collection-sponsor) of the getting started guide
+- Contract sponsor. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
+- Collection sponsor for Substrate transfers. Assigned in [step 4.1](#1-set-collection-sponsor)
+- Collection sponsor for Ethereum transfers. An ethereum mirror of s Substrate collection sponsor. QTZ was sent to it in [step 4.3](#1-set-collection-sponsor)
 
 
-## Using Private Blockchain
+## Using A Private Blockchain
 
-For testing purposes, it could be worthy to launch your own version of Quartz blockchain. To do this, use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private)
+For testing purposes it makes sense to launch a local version of a Quartz blockchain. To do this use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private).
+
 # Chats and communities
 
-You can find all developer news in our dev-announcements channel on Discord: https://discord.gg/hbhYeJfT
-If you have questions or you need assistance – feel free to reach out to our friendly team in the Unique Network Developer Support Telegram channel: https://t.me/unique_network_support
+You can find all developer related news in our \#dev-announcements channel on Discord: [https://discord.gg/hbhYeJfT](https://discord.gg/hbhYeJfT)
 
-## How Update Marketplace
+If you have questions or you need assistance feel free to reach out to our friendly team in the Unique Network Developer Support Telegram channel: [https://t.me/unique_network_support](https://t.me/unique_network_support).
+
+## How To Update The Marketplace
 
 ...
 
