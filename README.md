@@ -29,8 +29,16 @@
   - [Step 7 - Build and Run](#step-7---build-and-run)
   - [Step 8 - Enjoy](#step-8---enjoy)
 - [Advanced Guide](#advanced-guide)
-  - [UI Customization](#ui-customization)
-  - [Microservices](#microservices)
+  - [Services](#services)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+      - [API](#api)
+        - [Playgrounds](#playgrounds)
+      - [Unique Escrow and Kusama Escrow](#unique-escrow-and-kusama-escrow)
+      - [Postgres](#postgres)
+    - [Nginx](#nginx)
+  - [Sponsoring](#sponsoring)
+  - [Chats and communities](#chats-and-communities)
 - [License Information](#license-information)
 
 
@@ -151,10 +159,17 @@ Now you can check the configuration to make sure everything is set up.
 
 ```
 docker-compose up -d backend
-docker exec backend node dist/cli.js playground check_configuration
+docker exec backend node dist/cli.js playground check_config
 ```
 
 If everything is configured correctly, you will see a bunch of green checkboxes in the console, as shown below:
+
+<details>
+<summary> Troubleshooting</summary>
+- No contract address provided
+- No contract owner seed provided
+
+</details>
 
 ```
 Checking CONTRACT_ADDRESS
@@ -195,13 +210,53 @@ The marketplace will connect to the blockchain and the local backend and will di
 
 # Advanced Guide
 
-## UI Customization
+## Services
+
+The Unique Marketplace consist of the following services:
+
+### Frontend
+
+[GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-frontend#readme) 
+
+If you want to customize the UI and still be able to receive updates from Unique team – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
+
+### Backend
+
+[GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.1.0#readme).
+
+#### API
+
+##### Playgrounds
+
+We provide some tools you may want to use while configuring and exploiting your marketplace right inside marketplace API. If you have completed a getting started guide you already used some of them when you [deployed smart contract](#step-3---deploy-marketplace-smart-contract) and [checked marketplace configuration](#step-5---check-configuration).
+
+You may find information about all provided playgrounds in the marketplace docs.
 
 ...
 
-## Microservices
+#### Unique Escrow and Kusama Escrow
+
+These two crowlers do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace, such as the transfer of NFTs or Kusama tokens to the account address.
+#### Postgres
+
+You can configure your postgres by changing the environment variables inside your `.env` file. The default settings are already included in the `.env.sample` file.
+
+### Nginx
 
 ...
+
+
+## Sponsoring
+
+[Main article](https://docs.unique.network/unique-and-quartz-wiki/build/reference/sponsoring-and-fees)
+
+> The Unique Network allows sponsoring user transactions for NFT, Fungible, and Refungible collections and smart contracts. When collection (or smart contract) is sponsored, all their users need is to have the Unique wallet and address, but they don’t need to have any QTZ or UNQ balance on the wallet. This feature removes the extra friction for the end user and creates nice flawless user experience.
+
+It is always worth remembering that the sponsor accounts should have a balance of QTZ in order to be able provide users transactions.
+## Chats and communities
+
+...
+
 
 # License Information
 
