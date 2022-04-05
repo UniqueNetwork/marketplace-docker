@@ -55,7 +55,8 @@ In this tutorial we will install the marketplace locally on a computer or in a v
 ## Step 1 - Create Escrow Account
 
 An escrow account is a substate address that manages the NFT and Kusama tokens put up for sale.
-The easiest way to create an address is to use the extension [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will get 12-word mnemonic seed phrase, further called `ESCROW_SEED`. Do not share it with anybody because this phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
+The easiest way to create an address is to use the extension [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will get 12-word mnemonic seed phrase, further called `ESCROW_SEED`. 
+> :warning: Do not share it with anybody because this phrase is all that’s needed to get access to the money and NFTs that are stored on this account.
 
 ### Start Configuring
 
@@ -63,14 +64,14 @@ From inside the root directory create `.env` and copy the content of the `.env.s
 
 ## Step 2 - Get QTZ
 
-In order to get the marketplace running, your escrow address need some `TODO how much?` QTZ tokens. Now you can buy them on [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT).
+In order to get the marketplace running, your escrow address need some QTZ tokens. The minimum amount for launching marketplace is around 80 QTZ, but if you going to run it in production now, it will be better to get more QTZ in advance – 1000 should be ok. Now you can buy them on [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT).
 
 
 ## Step 3 - Deploy Marketplace Smart Contract
 
 There are two ways to put a token up for sale – at a fixed price and through an auction. All fixed price asks go throw special smart contract, which you can explore inside `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
 
-We also provide a special utility that is the easiest way to deploy your smart contract. In order to use it run the following script:
+We also provide a special utility that is the easiest way to deploy your smart contract. In order to use it you should have QTZ on your escrow account. The following script will create the ethereum address, deploy smart contract, set the ethereum calls sponsor, and send him some QTZ:
 
 ```
 docker-compose up -d backend
@@ -89,6 +90,8 @@ CONTRACT_ADDRESS: '0x74C2d83b868f7E7B7C02B7D0b87C3532a06f392c'
 ```
 
 Set the values above to the corresponding variables of `.env` file.
+
+> :warning: **Yous should never share your `CONTRACT_ETH_OWNER_SEED` or commit it in your git repository** because this is all that’s needed to get access to the money and NFTs that are stored on the sale. Keep it safe place!
 
 ## Step 4 - Create Sponsored Collection
 
