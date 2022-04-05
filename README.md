@@ -22,23 +22,24 @@
   - [Step 4 - Create Sponsored Collection](#step-4---create-sponsored-collection)
     - [1. Set Collection Sponsor](#1-set-collection-sponsor)
     - [2. Confirm Sponsorship](#2-confirm-sponsorship)
-    - [3. Transfer QTZ to Sponsor](#3-transfer-qtz-to-sponsor)
+    - [3. Transfer QTZ to Sponsors Ethereum Mirror](#3-transfer-qtz-to-sponsors-ethereum-mirror)
     - [4. Configure Marketplace](#4-configure-marketplace)
   - [Step 5 - Check Configuration](#step-5---check-configuration)
   - [Step 6 Add Certificate to the Trusted List](#step-6-add-certificate-to-the-trusted-list)
   - [Step 7 - Build and Run](#step-7---build-and-run)
   - [Step 8 - Enjoy](#step-8---enjoy)
 - [Advanced Guide](#advanced-guide)
-  - [Services](#services)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-      - [API](#api)
-        - [Playgrounds](#playgrounds)
-      - [Unique Escrow and Kusama Escrow](#unique-escrow-and-kusama-escrow)
-      - [Postgres](#postgres)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+    - [API](#api)
+      - [Playgrounds](#playgrounds)
+    - [Unique Escrow and Kusama Escrow](#unique-escrow-and-kusama-escrow)
+    - [Postgres](#postgres)
     - [Nginx](#nginx)
   - [Sponsoring](#sponsoring)
-  - [Chats and communities](#chats-and-communities)
+  - [Using Private Blockchain](#using-private-blockchain)
+- [Chats and communities](#chats-and-communities)
+  - [How Update Marketplace](#how-update-marketplace)
 - [License Information](#license-information)
 
 
@@ -95,11 +96,17 @@ SUMMARY:
 
 CONTRACT_ETH_OWNER_SEED: '0x6d853337ab45b20aa5231c33979330e2806465fb4ab...'
 CONTRACT_ADDRESS: '0x74C2d83b868f7E7B7C02B7D0b87C3532a06f392c'
+
+
+Substrate mirror of contract address (for balances): 5F2NmgKvWHYZBTCoXVgkJay3sBEzpzmamU3ARmAgbf4tvx1C
+Current contract balance: 40000000000000000000
 ```
 
 Set the values above to the corresponding variables of `.env` file.
 
-> :warning: **Yous should never share your `CONTRACT_ETH_OWNER_SEED` or commit it in your git repository** because this is all that’s needed to get access to the money and NFTs that are stored on the sale. Keep it safe place!
+> :warning: **You should never share your `CONTRACT_ETH_OWNER_SEED` or commit it in your git repository** because this is all that’s needed to get access to the money and NFTs that are stored on the sale. Keep it safe place!
+
+> :warning: You should remember `Substrate mirror of contract address`, because later all contract calls will be sponsored by it. So don't forget to keep some QTZ balance there
 
 ## Step 4 - Create Sponsored Collection
 
@@ -116,6 +123,8 @@ For now, EVM Marketplace can only work with sponsored collections. You may set s
 - Set the escrow address created in step 1 as the new sponsor
 - Click `Submit Transaction` and follow the instructions
 
+> :warning: You should remember this address, because later all transfers to substrate addresses, including your escrow account, will be sponsored by it. So don't forget to keep some QTZ balance there.
+
 ### 2. Confirm Sponsorship
 
 - Choose `unique` - `confirmSponsorship` method
@@ -123,7 +132,7 @@ For now, EVM Marketplace can only work with sponsored collections. You may set s
 - Set the collectionId parameter to the id of the previously created collection
 - Click `Submit Transaction` and follow the instructions
 
-### 3. Transfer QTZ to Sponsor
+### 3. Transfer QTZ to Sponsors Ethereum Mirror
 
 To sponsor EVM calls, you will need to transfer some QTZ to the ethereum mirror of your collection sponsor.
 
@@ -145,6 +154,8 @@ Substrate mirror of ethereum mirror balance: 0
 
 Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. Now all ethereum transactions will be sponsored from this address.
 
+> :warning: You should remember this address, because later all transfers to ethereum addresses, including your contact address, will be sponsored by it. So don't forget to keep some QTZ balance there.
+
 ### 4. Configure Marketplace
 
 Set the list of ids of the created collections in the `.env` file:
@@ -163,13 +174,6 @@ docker exec backend node dist/cli.js playground check_config
 ```
 
 If everything is configured correctly, you will see a bunch of green checkboxes in the console, as shown below:
-
-<details>
-<summary> Troubleshooting</summary>
-- No contract address provided
-- No contract owner seed provided
-
-</details>
 
 ```
 Checking CONTRACT_ADDRESS
@@ -204,40 +208,35 @@ docker-compose up -d
 
 ## Step 8 - Enjoy
 
-Open [localhost](http://localhost:80) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”.
+Open [https://localhost](http://localhost:80) in your Chrome browser. On the first launch you will see the Polkadot{.js}’s request to authorize the website, click “Yes”.
 
 The marketplace will connect to the blockchain and the local backend and will display the empty Market page. It is now ready to rumble.
 
 # Advanced Guide
 
-## Services
-
-The Unique Marketplace consist of the following services:
-
-### Frontend
+## Frontend
 
 [GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-frontend#readme) 
 
 If you want to customize the UI and still be able to receive updates from Unique team – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
 
-### Backend
+## Backend
 
 [GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.1.0#readme).
 
-#### API
+### API
 
-##### Playgrounds
+#### Playgrounds
 
 We provide some tools you may want to use while configuring and exploiting your marketplace right inside marketplace API. If you have completed a getting started guide you already used some of them when you [deployed smart contract](#step-3---deploy-marketplace-smart-contract) and [checked marketplace configuration](#step-5---check-configuration).
 
 You may find information about all provided playgrounds in the marketplace docs.
 
-...
 
-#### Unique Escrow and Kusama Escrow
+### Unique Escrow and Kusama Escrow
 
-These two crowlers do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace, such as the transfer of NFTs or Kusama tokens to the account address.
-#### Postgres
+These two crowlers are part of unique-marketplace-api project, and do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace, such as the transfer of NFTs or Kusama tokens to the account address.
+### Postgres
 
 You can configure your postgres by changing the environment variables inside your `.env` file. The default settings are already included in the `.env.sample` file.
 
@@ -253,10 +252,25 @@ You can configure your postgres by changing the environment variables inside you
 > The Unique Network allows sponsoring user transactions for NFT, Fungible, and Refungible collections and smart contracts. When collection (or smart contract) is sponsored, all their users need is to have the Unique wallet and address, but they don’t need to have any QTZ or UNQ balance on the wallet. This feature removes the extra friction for the end user and creates nice flawless user experience.
 
 It is always worth remembering that the sponsor accounts should have a balance of QTZ in order to be able provide users transactions.
-## Chats and communities
+
+The full list of your marketplace sponsors:
+
+- Contract sponsor. You have got it on [step 3](#step-3---deploy-marketplace-smart-contract) of the getting started guide
+- Collection sponsor for Substrate transfers. You assigned it at [step 4.1](#1-set-collection-sponsor) of the getting started guide
+- Collection sponsor for Ethereum transfers. It's an ethereum mirror of Substrate collection sponsor. You sent QTZ to it at [step 4.3](#1-set-collection-sponsor) of the getting started guide
+
+
+## Using Private Blockchain
+
+For testing purposes, it could be worthy to launch your own version of Quartz blockchain. To do this, use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private)
+# Chats and communities
+
+You can find all developer news in our dev-announcements channel on Discord: https://discord.gg/hbhYeJfT
+If you have questions or you need assistance – feel free to reach out to our friendly team in the Unique Network Developer Support Telegram channel: https://t.me/unique_network_support
+
+## How Update Marketplace
 
 ...
-
 
 # License Information
 
