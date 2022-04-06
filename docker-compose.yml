@@ -1,7 +1,7 @@
 version: "3"
 
 x-marketplace: &marketplace-backend
-  image: docker.io/uniquenetwork/marketplace-backend
+  image: uniquenetwork/marketplace-backend:${MARKET_VERSION}
   restart: unless-stopped
   env_file:
     - ./.env
@@ -24,7 +24,7 @@ services:
 
   frontend:
     container_name: frontend
-    image: uniquenetwork/marketplace-frontend:develop
+    image: uniquenetwork/marketplace-frontend:${MARKET_VERSION}
     environment:
       - UNIQUE_API_URL=/
     volumes:
@@ -52,12 +52,8 @@ services:
   postgres:
     image: postgres:14.1-alpine
     container_name: postgres
-    environment:
-      POSTGRES_DB: 'marketplace_db'
-      POSTGRES_USER: 'marketplace'
-      POSTGRES_PASSWORD: '12345'
-      POSTGRES_PORT: '5432'
-      POSTGRES_INITDB_ARGS: "--auth-local=trust"
+    env_file:
+      - ./.env
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro

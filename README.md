@@ -36,10 +36,10 @@
     - [Unique Escrow and Kusama Escrow](#unique-escrow-and-kusama-escrow)
     - [Postgres](#postgres)
     - [Nginx](#nginx)
+  - [Version Control and Updates](#version-control-and-updates)
   - [Sponsoring](#sponsoring)
   - [Using a Private Blockchain](#using-a-private-blockchain)
-- [Chats and communities](#chats-and-communities)
-  - [How to Update the Marketplace](#how-to-update-the-marketplace)
+- [Chats and Communities](#chats-and-communities)
 - [License Information](#license-information)
 
 
@@ -82,7 +82,11 @@ In order to get the marketplace running, the escrow address needs some QTZ token
 
 There are two ways to put a token up for sale – at a fixed price or through an auction. All fixed price asks get handled via a special smart contract which can be  explored in the `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
 
-A special utility is provided that is by far the easiest way to deploy a smart contract. Take note, there will need to be some QTZ in the escrow account to ensure a successful execution of the utility. The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it some QTZ:
+A special utility is provided that is by far the easiest way to deploy a smart contract. 
+
+> :warning: Take note, there will need to be some QTZ in the `ESCROW_ADDRESS` to ensure a successful execution of the utility. Also the `ESCROW_SEED` environment variable must be set in `.env` file. 
+ 
+The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it some QTZ:
 
 ```
 docker-compose up -d backend
@@ -237,7 +241,7 @@ All the information about these playgrounds utilities can be found in the market
 
 ### Unique Escrow and Kusama Escrow
 
-These two crowlers are part of unique-marketplace-api project, and do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace such as the transfer of NFTs or Kusama tokens to the account address.
+These two crowlers are part of unique-marketplace-api project, and do a simple thing - subscribe to receive new blocks of the corresponding blockchain and look for events related to the marketplace such as the transfer of NFTs or Kusama tokens to the escrow address.
 
 ### Postgres
 
@@ -247,6 +251,11 @@ Postgres can be configured by changing the environment variables inside the `.en
 
 ...
 
+## Version Control and Updates
+
+To avoid incompatibility, you should always use the same tag for [frontend](https://hub.docker.com/r/uniquenetwork/marketplace-frontend) and [backend](https://hub.docker.com/r/uniquenetwork/marketplace-backend) images from dockerhub. For this purposes we included `MARKET_VERSION` environment variable in `.env.sample`, which is used inside `docker-compose.yml` file.
+
+By default we specified the `latest` tag. Nevertheless, for production it is advisable to fix the versions by specifying for the `MARKET_VERSION` variable the tag on which the market has already been tested by you, and update as needed manually.
 
 ## Sponsoring
 
@@ -267,15 +276,11 @@ The full list of appearance of the marketplace sponsors:
 
 For testing purposes it makes sense to launch a local version of a Quartz blockchain. To do this use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private).
 
-# Chats and communities
+# Chats and Communities
 
 You can find all developer related news in our \#dev-announcements channel on Discord: [https://discord.gg/hbhYeJfT](https://discord.gg/hbhYeJfT)
 
 If you have questions or you need assistance feel free to reach out to our friendly team in the Unique Network Developer Support Telegram channel: [https://t.me/unique_network_support](https://t.me/unique_network_support).
-
-## How to Update the Marketplace
-
-...
 
 # License Information
 
