@@ -15,17 +15,17 @@
 
 - [Marketplace Deployment - Getting Started Guide](#marketplace-deployment---getting-started-guide)
   - [Prerequisites](#prerequisites)
-  - [Step 1 - Create An Escrow Account](#step-1---create-an-escrow-account)
+  - [Step 1 - Create an Escrow Account](#step-1---create-an-escrow-account)
     - [Start Configuring](#start-configuring)
   - [Step 2 - Get QTZ](#step-2---get-qtz)
-  - [Step 3 - Deploy A Marketplace Smart Contract](#step-3---deploy-a-marketplace-smart-contract)
-  - [Step 4 - Create A Sponsored Collection](#step-4---create-a-sponsored-collection)
+  - [Step 3 - Deploy a Marketplace Smart Contract](#step-3---deploy-a-marketplace-smart-contract)
+  - [Step 4 - Create a Sponsored Collection](#step-4---create-a-sponsored-collection)
     - [1. Set Collection Sponsor](#1-set-collection-sponsor)
     - [2. Confirm Sponsorship](#2-confirm-sponsorship)
     - [3. Transfer QTZ to Sponsors Ethereum Mirror](#3-transfer-qtz-to-sponsors-ethereum-mirror)
-    - [4. Configure The Marketplace](#4-configure-the-marketplace)
+    - [4. Configure the Marketplace](#4-configure-the-marketplace)
   - [Step 5 - Check Configuration](#step-5---check-configuration)
-  - [Step 6 - Add A Certificate to the Trusted List](#step-6-add-a-certificate-to-the-trusted-list)
+  - [Step 6 - Add a Certificate to the Trusted List](#step-6---add-a-certificate-to-the-trusted-list)
   - [Step 7 - Build and Run](#step-7---build-and-run)
   - [Step 8 - Enjoy](#step-8---enjoy)
 - [Advanced Guide](#advanced-guide)
@@ -37,9 +37,9 @@
     - [Postgres](#postgres)
     - [Nginx](#nginx)
   - [Sponsoring](#sponsoring)
-  - [Using A Private Blockchain](#using-a-private-blockchain)
+  - [Using a Private Blockchain](#using-a-private-blockchain)
 - [Chats and communities](#chats-and-communities)
-  - [How To Update The Marketplace](#how-to-update-the-marketplace)
+  - [How to Update the Marketplace](#how-to-update-the-marketplace)
 - [License Information](#license-information)
 
 
@@ -61,7 +61,7 @@ This tutorial shows the steps that need to be performed to carry out an install 
 >  * git
 >  * Google Chrome Browser
 
-## Step 1 - Create An Escrow Account
+## Step 1 - Create an Escrow Account
 
 An escrow account is a substrate address that manages the NFT and Kusama tokens put up for sale.
 The easiest way to create such an address is to use the browser wallet extension available at [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will be provided with a 12-word mnemonic seed phrase, further referred to in the text as `ESCROW_SEED`. 
@@ -78,7 +78,7 @@ From within the root directory create a fresh `.env` file and copy the entire co
 In order to get the marketplace running, the escrow address needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 80 QTZ. For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
 
 
-## Step 3 - Deploy A Marketplace Smart Contract
+## Step 3 - Deploy a Marketplace Smart Contract
 
 There are two ways to put a token up for sale – at a fixed price or through an auction. All fixed price asks get handled via a special smart contract which can be  explored in the `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
 
@@ -110,7 +110,7 @@ The actual output content will differ to the one above and will correspond to th
 
 > :warning: Take note of the `Substrate mirror of contract address` and have it handy as later on all contract calls will be sponsored by it. Also, don't forget to deposit some QTZ balance to the account as well.
 
-## Step 4 - Create A Sponsored Collection
+## Step 4 - Create a Sponsored Collection
 
 The simplest way create collection for a marketplace is using the [Minter](https://minter-quartz.unique.network) tool. Note down the `collection id` during the creation process as it will come in handy later on in the steps that follow.
 
@@ -158,7 +158,7 @@ Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. 
 
 > :warning: Note down this address, as later on all transfers to the ethereum addresses, including the contact address, will be sponsored by it. Have some a small amount of QTZ on balance at this address.
 
-### 4. Configure The Marketplace
+### 4. Configure the Marketplace
 
 Set the list of ids of the created collections in the `.env` file:
 
@@ -197,7 +197,7 @@ Collection #3
 
 At this point, the setup is almost done.
 
-## Step 6 Add A Certificate to the Trusted List
+## Step 6 - Add a Certificate to the Trusted List
 
 To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. You will need to add this certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
 
@@ -252,7 +252,7 @@ Postgres can be configured by changing the environment variables inside the `.en
 
 [Main article](https://docs.unique.network/unique-and-quartz-wiki/build/reference/sponsoring-and-fees)
 
-> The Unique Network allows sponsoring of user transactions for NFT, Fungible, and Refungible collections and smart contracts. When a collection (or a smart contract) is sponsored, the only thing the sponsored users need to have is a Unique wallet and an address. There is no requirement to have any QTZ or UNQ on balance in the wallet on their part. This feature removes the extra friction for the end user and creates nice, flawless user experience for the brand new user in the unique chain.
+> The Unique Network allows sponsoring of user transactions for NFT, Fungible, and Refungible collections and smart contracts. When a collection (or a smart contract) is sponsored, the only thing the sponsored users need to have is a Unique wallet and an address. There is no requirement to have any QTZ or UNQ on balance in the wallet on their part. This feature removes the extra friction for the end user and creates a nice, flawless user experience for the brand new user in the unique chain.
 
 However, it is always worth remembering that the sponsor accounts should have a balance of QTZ in order to be able provide for the sponsored user transactions.
 
@@ -263,7 +263,7 @@ The full list of appearance of the marketplace sponsors:
 - Collection sponsor for Ethereum transfers. An ethereum mirror of s Substrate collection sponsor. QTZ was sent to it in [step 4.3](#1-set-collection-sponsor)
 
 
-## Using A Private Blockchain
+## Using a Private Blockchain
 
 For testing purposes it makes sense to launch a local version of a Quartz blockchain. To do this use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private).
 
@@ -273,7 +273,7 @@ You can find all developer related news in our \#dev-announcements channel on Di
 
 If you have questions or you need assistance feel free to reach out to our friendly team in the Unique Network Developer Support Telegram channel: [https://t.me/unique_network_support](https://t.me/unique_network_support).
 
-## How To Update The Marketplace
+## How to Update the Marketplace
 
 ...
 
