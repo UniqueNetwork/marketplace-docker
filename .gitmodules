@@ -1,7 +1,0 @@
-[submodule "ui"]
-	path = ui
-	url = https://github.com/UniqueNetwork/marketplace.git
-	branch = develop
-[submodule "backend"]
-	path = backend
-	url = https://github.com/UniqueNetwork/marketplace_backend.git
