@@ -15,7 +15,7 @@
 
 - [Marketplace Deployment - Getting Started Guide](#marketplace-deployment---getting-started-guide)
   - [Prerequisites](#prerequisites)
-  - [Step 1 - Create an Escrow Account](#step-1---create-an-escrow-account)
+  - [Step 1 - Create Escrow and Auction Accounts](#step-1---create-escrow-and-auction-accounts)
     - [Start Configuring](#start-configuring)
   - [Step 2 - Get QTZ](#step-2---get-qtz)
   - [Step 3 - Deploy a Marketplace Smart Contract](#step-3---deploy-a-marketplace-smart-contract)
@@ -61,21 +61,26 @@ This tutorial shows the steps that need to be performed to carry out an install 
 >  * git
 >  * Google Chrome Browser
 
-## Step 1 - Create an Escrow Account
+## Step 1 - Create Escrow and Auction Accounts
 
 An escrow account is a substrate address that manages the NFT and Kusama tokens put up for sale.
-The easiest way to create such an address is to use the browser wallet extension available at [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will be provided with a 12-word mnemonic seed phrase, further referred to in the text as `ESCROW_SEED`. 
+The easiest way to create such an address is to use the browser wallet extension available at [https://polkadot.js.org/extension/](https://polkadot.js.org/extension/). During the creation of the address, you will be provided with a 12-word mnemonic seed phrase, further referred to in the text as `ESCROW_SEED`.
+
+Follow the same steps again to get `AUCTION_SEED`
+
+> :warning: Be sure to make sure that `ESCROW_SEED` and `AUCTION_SEED` have different values, otherwise the market will not be able to work correctly, and it will create vulnerabilities 
+
 > :warning: Do not share the mnemonic phrase with anybody as this phrase is all that’s needed for someone to obtain access to the funds and NFTs that are stored on this account.
 
-> :warning: Note down the address of the newly created account. It will be used in the upcoming steps and will be referred to as the `ESCROW_ADDRESS`.
+> :warning: Note down the address of the newly created accounts. It will be used in the upcoming steps and will be referred to as the `ESCROW_ADDRESS` and `AUCTION_ADDRESS`.
 
 ### Start Configuring
 
-From within the root directory create a fresh `.env` file and copy the entire contents of the `.env.sample` into it. Set the corresponding variable in the `.env` file to the `ESCROW_SEED` phrase we obtained above.
+From within the root directory create a fresh `.env` file and copy the entire contents of the `.env.sample` into it. Set the corresponding variable in the `.env` file to the `ESCROW_SEED` and `AUCTION_SEED` phrases we obtained above.
 
 ## Step 2 - Get QTZ
 
-In order to get the marketplace running, the escrow address needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 80 QTZ. For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
+In order to get the marketplace running, the `ESCROW_ADDRESS` needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 80 QTZ. For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
 
 
 ## Step 3 - Deploy a Marketplace Smart Contract
@@ -203,7 +208,9 @@ At this point, the setup is almost done.
 
 ## Step 6 - Add a Certificate to the Trusted List
 
-To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. You will need to add this certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
+To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. Crete copy of `certificate.sample.crt`, name it `certificate.crt`. Also rename `private.sample.key`, call it `private.key`. You will need to add this newly created certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
+
+
 
 ## Step 7 - Build and Run
 
@@ -224,6 +231,8 @@ The marketplace will connect to the blockchain and the local backend and will di
 ## Frontend
 
 [GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-frontend#readme) 
+
+Unique marketplace provides a simple solution for customizing UI. Just try it – rename `static.sample` folder, name it `static`. Feel free to change some styles or layout.
 
 If you want to customize the UI and still be able to receive updates from team Unique – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
 
