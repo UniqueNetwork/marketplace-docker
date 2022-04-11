@@ -1,3 +1,6 @@
 /pgdata
 .env
 .DS_Store
+
+certificate.crt
+private.key
