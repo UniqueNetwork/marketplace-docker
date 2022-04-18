@@ -208,7 +208,7 @@ At this point, the setup is almost done.
 
 ## Step 6 - Add a Certificate to the Trusted List
 
-To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. Crete copy of `certificate.sample.crt`, name it `certificate.crt`. Also rename `private.sample.key`, call it `private.key`. You will need to add this newly created certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
+To simplify the process of setting the marketplace up, a self-signed ssl certificate is provided for a test implementation. It is located in the `nginx/ssl` folder. It should never be used in a production context, but for a test environment it provides a convenient, workable solution. Create a copy of `certificate.sample.crt`, name it `certificate.crt`. Also rename `private.sample.key`, call it `private.key`. You will need to add this newly created certificate to your list of trusted certificates. Otherwise, there is always the option to generate a personal domain ssl certificate via an on-line ssl certificate issuing authority.
 
 
 
