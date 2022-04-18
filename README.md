@@ -85,7 +85,7 @@ In order to get the marketplace running, the `ESCROW_ADDRESS` needs some QTZ tok
 
 ## Step 3 - Deploy a Marketplace Smart Contract
 
-There are two ways to put a token up for sale – at a fixed price or through an auction. All fixed price asks get handled via a special smart contract which can be  explored in the `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/release/v1.0/blockchain.
+There are two ways to put a token up for sale – at a fixed price or through an auction. All fixed price asks get handled via a special smart contract which can be  explored in the `unique-marketplace-api` project on github - https://github.com/UniqueNetwork/unique-marketplace-api/tree/master/blockchain.
 
 A special utility is provided that is by far the easiest way to deploy a smart contract. 
 
