@@ -22,8 +22,6 @@
   - [Step 4 - Create a Sponsored Collection](#step-4---create-a-sponsored-collection)
     - [1. Set Collection Sponsor](#1-set-collection-sponsor)
     - [2. Confirm Sponsorship](#2-confirm-sponsorship)
-    - [3. Transfer QTZ to Sponsors Ethereum Mirror](#3-transfer-qtz-to-sponsors-ethereum-mirror)
-    - [4. Configure the Marketplace](#4-configure-the-marketplace)
   - [Step 5 - Check Configuration](#step-5---check-configuration)
   - [Step 6 - Add a Certificate to the Trusted List](#step-6---add-a-certificate-to-the-trusted-list)
   - [Step 7 - Build and Run](#step-7---build-and-run)
@@ -80,7 +78,7 @@ From within the root directory create a fresh `.env` file and copy the entire co
 
 ## Step 2 - Get QTZ
 
-In order to get the marketplace running, the `ESCROW_ADDRESS` needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 80 QTZ. For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
+In order to get the marketplace running, the `ESCROW_ADDRESS` needs some QTZ tokens to be deposited into it. The minimum amount for launching a marketplace is around 60 QTZ (~50 QTZ for contract deployment, and ~10 QTZ for creating collection, and 50 NFTs). For a production setup, however, consider obtaining a bit more QTZ in advance – 1000 should cover all foreseeable expenses. At the time of writing of this tutorial QTZ can be obtained on the [MEXC Global](https://www.mexc.com/exchange/QTZ_USDT) exchange.
 
 
 ## Step 3 - Deploy a Marketplace Smart Contract
@@ -89,9 +87,9 @@ There are two ways to put a token up for sale – at a fixed price or through an
 
 A special utility is provided that is by far the easiest way to deploy a smart contract. 
 
-> :warning: Take note, there will need to be some QTZ in the `ESCROW_ADDRESS` to ensure a successful execution of the utility. Also the `ESCROW_SEED` environment variable must be set in `.env` file. 
+> :warning: Take note, there will need to be ~50 QTZ in the `ESCROW_ADDRESS` to ensure a successful execution of the utility. Also the `ESCROW_SEED` environment variable must be set in `.env` file. 
  
-The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it some QTZ:
+The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it 40 QTZ:
 
 ```
 docker-compose up -d backend
@@ -121,11 +119,17 @@ The actual output content will differ to the one above and will correspond to th
 
 ## Step 4 - Create a Sponsored Collection
 
-The simplest way create collection for a marketplace is using the [Minter](https://minter-quartz.unique.network) tool. Note down the `collection id` during the creation process as it will come in handy later on in the steps that follow.
+The simplest way create collection for a marketplace is using the [Minter](https://minter-quartz.unique.network) tool. Note down the `collection id` during the creation process as it will come in handy later on in the steps that follow. You will only need about 10 QTZ to create a collection and 50 NFTs.
 
 ![Minter](./doc/Step6-0.png)
 
-For now, the EVM Marketplace can only work with sponsored collections. A sponsorship can be set up using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 4 steps, as follows:
+Set the list of ids of the created collections in the `.env` file:
+
+```
+UNIQUE_COLLECTION_IDS='3,4,5'
+```
+
+The marketplace can operate without sponsored collections. However, in this case, your users will be forced to pay a commission of the Quartz network. For a smoother experience, you may sponsor transfers of nft tokens made by your users. A sponsorship can be set up using [polkadot.js.org/apps](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fquartz.unique.network#/extrinsics) in 2 steps, as follows:
 
 ### 1. Set Collection Sponsor
 
@@ -134,8 +138,6 @@ For now, the EVM Marketplace can only work with sponsored collections. A sponsor
 - Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the new sponsor
 - Click `Submit Transaction` and follow the instructions
 
-> :warning: Take note of the address and have it handy as later on all transfers to substrate addresses, including the escrow account, will be sponsored by it. Don't forget to make sure there is some QTZ in the account.
-
 ### 2. Confirm Sponsorship
 
 - Choose `unique` - `confirmSponsorship` method
@@ -143,37 +145,7 @@ For now, the EVM Marketplace can only work with sponsored collections. A sponsor
 - Set the collectionId parameter to the id of the newly created collection
 - Click `Submit Transaction` and follow the instructions
 
-### 3. Transfer QTZ to Sponsors Ethereum Mirror
-
-To sponsor EVM calls, some QTZ need to be transferred to the ethereum mirror of the collection sponsor.
-
-Use a built-in utility to obtain this address. In the script below, change `<COLLECTION_SPONSOR>` to the [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account), and run it.
-```
-docker exec -ti backend node sub_to_eth.js <COLLECTION_SPONSOR>
-```
-
-The result should look similar to this output:
-
-```
-Substrate address: 5EC3pKTxGj8ciFp37giawUY1B4aWTAU7aRRK8eA1J8SKNRsf
-Substrate address balance: 9748981663000000000000
-Ethereum mirror: 0x5e125Fd6aA7D06dEEd31475BcE293999a48015B0
-Ethereum mirror balance: 0
-Substrate mirror of ethereum mirror: 5C9rxShqs4vA3dxvesNUfPHRinWfwSeQAkHmaWbVzki84g1y
-Substrate mirror of ethereum mirror balance: 0
-```
-
-Copy the `Substrate mirror of ethereum mirror` address and send some QTZ there. From here on, all ethereum transactions will be sponsored from this address.
-
-> :warning: Note down this address, as later on all transfers to the ethereum addresses, including the contact address, will be sponsored by it. Have some a small amount of QTZ on balance at this address.
-
-### 4. Configure the Marketplace
-
-Set the list of ids of the created collections in the `.env` file:
-
-```
-UNIQUE_COLLECTION_IDS='3,4,5'
-```
+> :warning: Take note of the sponsor address and have it handy as later on all transfers will be sponsored by it. Don't forget to make sure there is some QTZ in the account.
 
 ## Step 5 - Check Configuration
 
@@ -198,8 +170,7 @@ Contract owner balance is 4 tokens (4492008910681246304)
 Checking UNIQUE_COLLECTION_IDS
 Collection #3
   [v] Sponsor is confirmed, yGGxcBQUCymdHtjQUdJDiXDTTXuonGv8HyRJiH5YDUcmfUyhr
-  [v] Sponsor has 999999999948 tokens (999999999948126753000000000000) on its substrate wallet
-  [v] Sponsor has 1000000000 tokens (1000000000000000000000000000) on its ethereum wallet
+  [v] Sponsor has 999999999948 tokens (999999999948126753000000000000) on its wallet
   [v] Transfer timeout is zero blocks
   [v] Approve timeout is zero blocks
 ```
@@ -277,8 +248,7 @@ However, it is always worth remembering that the sponsor accounts should have a 
 The full list of appearance of the marketplace sponsors:
 
 - Contract sponsor. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
-- Collection sponsor for Substrate transfers. Assigned in [step 4.1](#1-set-collection-sponsor)
-- Collection sponsor for Ethereum transfers. An ethereum mirror of s Substrate collection sponsor. QTZ was sent to it in [step 4.3](#1-set-collection-sponsor)
+- Sponsor of collection tokens transfers. Assigned in [step 4.1](#1-set-collection-sponsor)
 
 
 ## Using a Private Blockchain
