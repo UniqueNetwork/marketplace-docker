@@ -22,6 +22,7 @@
   - [Step 4 - Create a Sponsored Collection](#step-4---create-a-sponsored-collection)
     - [1. Set Collection Sponsor](#1-set-collection-sponsor)
     - [2. Confirm Sponsorship](#2-confirm-sponsorship)
+    - [3. Set a Transfer Sponsorship Limit](#3-set-a-transfer-sponsorship-limit)
   - [Step 5 - Check Configuration](#step-5---check-configuration)
   - [Step 6 - Add a Certificate to the Trusted List](#step-6---add-a-certificate-to-the-trusted-list)
   - [Step 7 - Build and Run](#step-7---build-and-run)
@@ -146,6 +147,14 @@ The marketplace can operate without sponsored collections. However, in this case
 - Click `Submit Transaction` and follow the instructions
 
 > :warning: Take note of the sponsor address and have it handy as later on all transfers will be sponsored by it. Don't forget to make sure there is some QTZ in the account.
+
+### 3. Set a Transfer Sponsorship Limit
+
+- Choose `unique` - `setCollectionLimits` method
+- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Set the `sponsorTransferTimeout` parameter to `0`
+- Click `Submit Transaction` and follow the instructions
+
 
 ## Step 5 - Check Configuration
 
