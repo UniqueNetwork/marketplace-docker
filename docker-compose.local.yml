@@ -14,8 +14,7 @@ services:
     container_name: nginx
     image: nginx:alpine
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/nginx.local.conf:/etc/nginx/templates/default.conf.template:ro
     ports:
       - 80:80
       - 443:443
@@ -57,5 +56,3 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
-
-
