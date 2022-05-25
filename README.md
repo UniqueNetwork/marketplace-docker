@@ -212,7 +212,7 @@ The marketplace will connect to the blockchain and the local backend and will di
 
 [GitHub repo and docs](https://github.com/UniqueNetwork/unique-marketplace-frontend#readme) 
 
-Unique marketplace provides a simple solution for customizing UI. Just try it – rename `static.sample` folder, name it `static`. Feel free to change some styles or layout.
+Unique marketplace provides a simple solution for customizing UI. Just try it – feel free to change some styles or layout in `static` folder.
 
 If you want to customize the UI and still be able to receive updates from team Unique – follow this [instruction](https://github.com/UniqueNetwork/unique-marketplace-api#readme).
 
