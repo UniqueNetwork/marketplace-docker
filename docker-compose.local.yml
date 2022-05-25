@@ -1,0 +1,58 @@
+version: "3"
+
+x-marketplace: &marketplace-backend
+  image: uniquenetwork/marketplace-backend:${MARKET_VERSION}
+  restart: unless-stopped
+  env_file:
+    - ./.env
+  depends_on:
+    - postgres
+
+services:
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.local.conf:/etc/nginx/templates/default.conf.template:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - frontend
+
+  frontend:
+    container_name: frontend
+    image: uniquenetwork/marketplace-frontend:${MARKET_VERSION}
+    env_file:
+      - ./.env
+    volumes:
+      - ./static/footer.html:/usr/share/nginx/html/footer.html:ro
+      - ./static/logo.svg:/usr/share/nginx/html/logos/logo.svg:ro
+      - ./static/variables.css:/usr/share/nginx/html/variables.css:ro
+    depends_on:
+      - backend
+
+
+  backend:
+    container_name: backend
+    <<: *marketplace-backend
+
+  escrow-unique:
+    container_name: escrow-unique
+    command: [ "npm", "run", "escrow:unique" ]
+    <<: *marketplace-backend
+
+  escrow-kusama:
+    container_name: escrow-kusama
+    command: [ "npm", "run", "escrow:kusama" ]
+    <<: *marketplace-backend
+
+  postgres:
+    image: postgres:14.1-alpine
+    container_name: postgres
+    env_file:
+      - ./.env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
