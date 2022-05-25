@@ -25,8 +25,8 @@ services:
   frontend:
     container_name: frontend
     image: uniquenetwork/marketplace-frontend:${MARKET_VERSION}
-    environment:
-      - UNIQUE_API_URL=/
+    env_file:
+      - ./.env
     volumes:
       - ./static/footer.html:/usr/share/nginx/html/footer.html:ro
       - ./static/logo.svg:/usr/share/nginx/html/logos/logo.svg:ro
