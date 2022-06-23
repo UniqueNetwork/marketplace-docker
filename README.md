@@ -136,13 +136,13 @@ The marketplace can operate without sponsored collections. However, in this case
 
 - Choose `unique` - `setCollectionSponsor` method
 - Set the collectionId parameter to the id of the newly created collection
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the new sponsor
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the new sponsor
 - Click `Submit Transaction` and follow the instructions
 
 ### 2. Confirm Sponsorship
 
 - Choose `unique` - `confirmSponsorship` method
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the transaction sender
 - Set the collectionId parameter to the id of the newly created collection
 - Click `Submit Transaction` and follow the instructions
 
@@ -151,7 +151,7 @@ The marketplace can operate without sponsored collections. However, in this case
 ### 3. Set a Transfer Sponsorship Limit
 
 - Choose `unique` - `setCollectionLimits` method
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the transaction sender
 - Set the `sponsorTransferTimeout` parameter to `0`
 - Click `Submit Transaction` and follow the instructions
 
@@ -256,7 +256,8 @@ However, it is always worth remembering that the sponsor accounts should have a 
 
 The full list of appearance of the marketplace sponsors:
 
-- Contract sponsor. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
+- Contract owner. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
+- Сontract itself, also created in [step 3](#step-3---deploy-a-marketplace-smart-contract)
 - Sponsor of collection tokens transfers. Assigned in [step 4.1](#1-set-collection-sponsor)
 
 
