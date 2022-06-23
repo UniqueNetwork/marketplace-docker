@@ -56,7 +56,6 @@ This tutorial shows the steps that need to be performed to carry out an install 
 
 >  * OS: Ubuntu 18.04 or 20.04
 >  * docker CE 20.10 or up
->  * docker-compose 1.25 or up
 >  * git
 >  * Google Chrome Browser
 
@@ -93,7 +92,7 @@ A special utility is provided that is by far the easiest way to deploy a smart c
 The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it 40 QTZ:
 
 ```
-docker-compose up -d backend
+docker compose up -d backend
 docker exec backend node dist/cli.js playground deploy_contract
 ```
 
@@ -161,7 +160,7 @@ The marketplace can operate without sponsored collections. However, in this case
 There is a handy utility that will run a check to test if everything is set properly up. To use it execute the script below:
 
 ```
-docker-compose up -d backend
+docker compose up -d backend
 docker exec backend node dist/cli.js playground check_config
 ```
 
@@ -197,7 +196,7 @@ To simplify the process of setting the marketplace up, a self-signed ssl certifi
 Execute the following command in the terminal and wait for it to complete:
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Step 8 - Enjoy
