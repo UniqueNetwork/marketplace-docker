@@ -56,7 +56,6 @@ This tutorial shows the steps that need to be performed to carry out an install 
 
 >  * OS: Ubuntu 18.04 or 20.04
 >  * docker CE 20.10 or up
->  * docker-compose 1.25 or up
 >  * git
 >  * Google Chrome Browser
 
@@ -93,7 +92,7 @@ A special utility is provided that is by far the easiest way to deploy a smart c
 The following script runs this utility and will create the ethereum address, deploy the smart contract, set the ethereum calls sponsor, and send it 40 QTZ:
 
 ```
-docker-compose up -d backend
+docker compose up -d backend
 docker exec backend node dist/cli.js playground deploy_contract
 ```
 
@@ -136,13 +135,13 @@ The marketplace can operate without sponsored collections. However, in this case
 
 - Choose `unique` - `setCollectionSponsor` method
 - Set the collectionId parameter to the id of the newly created collection
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the new sponsor
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the new sponsor
 - Click `Submit Transaction` and follow the instructions
 
 ### 2. Confirm Sponsorship
 
 - Choose `unique` - `confirmSponsorship` method
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the transaction sender
 - Set the collectionId parameter to the id of the newly created collection
 - Click `Submit Transaction` and follow the instructions
 
@@ -151,7 +150,7 @@ The marketplace can operate without sponsored collections. However, in this case
 ### 3. Set a Transfer Sponsorship Limit
 
 - Choose `unique` - `setCollectionLimits` method
-- Provide [`ESCROW_ADDRESS`](#step-1---create-an-escrow-account) as the transaction sender
+- Provide [`ESCROW_ADDRESS`](#step-1---create-escrow-and-auction-accounts) as the transaction sender
 - Set the `sponsorTransferTimeout` parameter to `0`
 - Click `Submit Transaction` and follow the instructions
 
@@ -161,7 +160,7 @@ The marketplace can operate without sponsored collections. However, in this case
 There is a handy utility that will run a check to test if everything is set properly up. To use it execute the script below:
 
 ```
-docker-compose up -d backend
+docker compose up -d backend
 docker exec backend node dist/cli.js playground check_config
 ```
 
@@ -197,7 +196,7 @@ To simplify the process of setting the marketplace up, a self-signed ssl certifi
 Execute the following command in the terminal and wait for it to complete:
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Step 8 - Enjoy
@@ -256,7 +255,8 @@ However, it is always worth remembering that the sponsor accounts should have a 
 
 The full list of appearance of the marketplace sponsors:
 
-- Contract sponsor. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
+- Contract owner. In [step 3](#step-3---deploy-a-marketplace-smart-contract)
+- Сontract itself, also created in [step 3](#step-3---deploy-a-marketplace-smart-contract)
 - Sponsor of collection tokens transfers. Assigned in [step 4.1](#1-set-collection-sponsor)
 
 
