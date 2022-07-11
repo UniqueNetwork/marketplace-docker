@@ -38,6 +38,7 @@
   - [Version Control and Updates](#version-control-and-updates)
   - [Sponsoring](#sponsoring)
   - [Using a Private Blockchain](#using-a-private-blockchain)
+  - [Primary Market](#primary-market)
 - [Chats and Communities](#chats-and-communities)
 - [License Information](#license-information)
 
@@ -110,6 +111,7 @@ CONTRACT_ADDRESS: '0x74C2d83b868f7E7B7C02B7D0b87C3532a06f392c'
 Substrate mirror of contract address (for balances): 5F2NmgKvWHYZBTCoXVgkJay3sBEzpzmamU3ARmAgbf4tvx1C
 Current contract balance: 40000000000000000000
 ```
+> NOTE: please save carefully substrate mirror of contract address because it is used for replenishment the balance.
 
 The actual output content will differ to the one above and will correspond to the data set in the variables of the `.env` file.
 
@@ -263,6 +265,50 @@ The full list of appearance of the marketplace sponsors:
 ## Using a Private Blockchain
 
 For testing purposes it makes sense to launch a local version of a Quartz blockchain. To do this use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private).
+
+## Primary Market
+
+Administrators of the market have ability to switch between **Secondary** and **Primary** states of the market.
+
+When the market is switched to the **Primary**:
+- Only administrators can put tokens for sale. This is applicable for both - fixed price and auction selling methods; 
+- Other users cannot put tokens for sale. 'Sell' button is not available at the token pages;
+- At the same time 'Transfer' button is available for administrators and other users in any state of the market.
+
+![Primary](./doc/primary_market.png)
+
+When the market is switched to the **Secondary** all the users can can put tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
+
+![Secondary](./doc/secondary_market.png)
+
+There are **three environment variables** under 'Market type configuration' section inside the `.env` file.
+
+1. Type of the market can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable    respective market state.
+
+2. `MAINSALE_SEED` variable is a substrate address of the account whicn is granted:
+- to perform mass placement of tokens for sale with fixed price;
+- to perform mass placement of tokens for auction sale;
+- to perform the cancellation of all offers and auctions;
+
+**PLEASE NOTICE**
+
++ There can only be one MAINSALE_SEED address for the market;
++ There is no strict rule to add MAINSALE_SEED address for the market;
++ When market type is **Primary** MAINSALE_SEED address must be added to the administrators list.  
+
+3. `ADMIN_LIST` is an array of substrate adresses of all the administrators including MAINSALE_SEED when required.
+   
+It is supposed that market type is set just after deploying the market when there are no other collections added.
+However if the owner of a secondary market would switch it to the primary type when there are lots of offers created the following approach is used:
+
+Auctions:
+   - all auctions are stopped. The last high bid wins the auction;
+   - the token is given to the winner;
+   - the losers are refunded their bid amount.
+
+Offers:  
+   - the offer is transferred to the status `removed_by_admin`;
+   - the owner of the offer can remove the token from sale in the 'My tokens' section.
 
 # Chats and Communities
 
