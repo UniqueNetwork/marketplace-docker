@@ -268,7 +268,7 @@ For testing purposes it makes sense to launch a local version of a Quartz blockc
 
 ## Primary Market
 
-Administrators of the market have ability to switch between **Secondary** and **Primary** states of the market.
+There are two possible states of the marker **Secondary** and **Primary**. 
 
 When the market is switched to the **Primary**:
 - Only administrators can put tokens for sale. This is applicable for both - fixed price and auction selling methods; 
@@ -277,29 +277,33 @@ When the market is switched to the **Primary**:
 
 ![Primary](./doc/primary_market.png)
 
-When the market is switched to the **Secondary** all the users can can put tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
+When the market is the **Secondary** all the users can can put tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
 
 ![Secondary](./doc/secondary_market.png)
 
 There are **three environment variables** under 'Market type configuration' section inside the `.env` file.
 
-1. Type of the market can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable    respective market state.
+1. Type of the market can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable    respective market type.
 
-2. `MAINSALE_SEED` variable is a substrate address of the account whicn is granted:
+2. `MAINSALE_SEED` variable is a substrate address of the account which is granted:
 - to perform mass placement of tokens for sale with fixed price;
 - to perform mass placement of tokens for auction sale;
-- to perform the cancellation of all offers and auctions;
+- to perform the cancellation of all offers and auctions of the secondary market;
 
 **PLEASE NOTICE**
 
 + There can only be one MAINSALE_SEED address for the market;
 + There is no strict rule to add MAINSALE_SEED address for the market;
-+ When market type is **Primary** MAINSALE_SEED address must be added to the administrators list.  
++ MAINSALE_SEED address must be added to the administrators list. However if you miss this step, `MAINSALE_SEED` address will be automatically added to the `ADMIN_LIST` just after running the market.
 
-3. `ADMIN_LIST` is an array of substrate adresses of all the administrators including MAINSALE_SEED when required.
-   
-It is supposed that market type is set just after deploying the market when there are no other collections added.
-However if the owner of a secondary market would switch it to the primary type when there are lots of offers created the following approach is used:
+3. `ADMIN_LIST` is an array of substrate adresses of all the administrators including `MAINSALE_SEED` when it exists.
+> Add Substrate addresses of marketplace administrators separated by commas. Works since version marketplace API v1.6.0
+
+**WARNING!!!**
+Make sure that `MAINSALE_SEED` has different from `ESCROW_SEED` and `AUCTION_SEED` values, otherwise the market will not be able to work correctly and it will create vulnerabilities.
+
+It is supposed that market type is set when deploying the market and there are no other collections added.
+However if the owner of a secondary market switches it to the primary type when there are lots of offers created the following approach is used:
 
 Auctions:
    - all auctions are stopped. The last high bid wins the auction;
@@ -310,6 +314,45 @@ Offers:
    - the offer is transferred to the status `removed_by_admin`;
    - the owner of the offer can remove the token from sale in the 'My tokens' section.
 
+**ADMIN PANEL**
+
+For all accounts added to the `ADMIN_LIST` variable access to the **Admin panel** of the market is provided regardless of the market state.
+
+The main goal of the **Admin panel** is adding collections for sale and enabling collection sponsoring. You can find additional information in the [create a sponsored collection](#step-4---create-a-sponsored-collection) and [sponsoring](#sponsoring) sections.
+
+To log into the **Admin panel** do the following:
+- Open your browser and navigate to [https://localhost/administration/login](http://localhost:80/administration/login). You will be prompted to authorize with Polkadot{.js}’s request; 
+- Sign the message in the extension to authorize. 
+
+You will navigate to the **Admin panel**.
+
+![AdminPanel](./doc/admin_panel.png)
+
+**Admin panel** provides a number of main options:
+1. Add collections for sale;
+2. Remove collections from sale;
+3. Accept sponsorship;
+4. Reject sponsorship;
+5. Listing particular tokens of a collection to the market (or all the tokens). 
+
+Additional functionalities are available as well:
++ Navigate to the 'Scan' page of the collection;
++ Creation new collections via wallet. By clicking corresponding button user will be redirected to the wallet page;
++ Search by collection ID or Name;
++ Sorting collections.
+
+In **Admin panel** when you are logged in under `MAINSALE_SEED` account there is no way to perform mass placement of tokens for sale or mass cancellation.
+
+For such purposes you can use the marketplace Swagger Api:
+- Open your browser and navigate to [https://localhost/api/docs](http://localhost:5000/api/docs);
+- Use appropriate methods 
+  - `/api/admin/login` to authorize;
+  - `/api/admin/collections/fixprice` for mass fixprice sale;
+  - `/api/admin/collections/auction` for mass auction sale;
+  - `/api/admin/mass-cancel` to perform the cancellation of all offers and auctions.
+
+Note that `MAINSALE_SEED` has to be the owner of the tokens supposed to be put for sale.
+ 
 # Chats and Communities
 
 You can find all developer related news in our \#dev-announcements channel on Discord: [https://discord.gg/hbhYeJfT](https://discord.gg/hbhYeJfT)
