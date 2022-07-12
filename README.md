@@ -38,7 +38,7 @@
   - [Version Control and Updates](#version-control-and-updates)
   - [Sponsoring](#sponsoring)
   - [Using a Private Blockchain](#using-a-private-blockchain)
-  - [Primary Market](#primary-market)
+  - [Primary Marketplace](#primary-marketplace)
 - [Chats and Communities](#chats-and-communities)
 - [License Information](#license-information)
 
@@ -266,44 +266,44 @@ The full list of appearance of the marketplace sponsors:
 
 For testing purposes it makes sense to launch a local version of a Quartz blockchain. To do this use the [image from docker hub](https://hub.docker.com/r/uniquenetwork/quartz-node-private).
 
-## Primary Market
+## Primary Marketplace
 
-There are two possible states of the marker **Secondary** and **Primary**. 
+There are two possible states of the marketplace **Secondary** and **Primary**. 
 
-When the market is switched to the **Primary**:
-- Only administrators can put tokens for sale. This is applicable for both - fixed price and auction selling methods; 
-- Other users cannot put tokens for sale. 'Sell' button is not available at the token pages;
-- At the same time 'Transfer' button is available for administrators and other users in any state of the market.
+When the marketplace is switched to the **Primary**:
+- Only administrators can put up tokens for sale. This is applicable for both - fixed price and auction selling methods; 
+- Other users cannot put up tokens for sale. 'Sell' button is not available at the token pages;
+- At the same time 'Transfer' button is available for all users in any state of the marketplace.
 
 ![Primary](./doc/primary_market.png)
 
-When the market is the **Secondary** all the users can can put tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
+When the marketplace is the **Secondary** all the users can put up tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
 
 ![Secondary](./doc/secondary_market.png)
 
 There are **three environment variables** under 'Market type configuration' section inside the `.env` file.
 
-1. Type of the market can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable    respective market type.
+1. Type of the marketplace can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable appropriate type.
 
 2. `MAINSALE_SEED` variable is a substrate address of the account which is granted:
 - to perform mass placement of tokens for sale with fixed price;
 - to perform mass placement of tokens for auction sale;
-- to perform the cancellation of all offers and auctions of the secondary market;
+- to perform the cancellation of all offers and auctions of the secondary marketplace;
 
 **PLEASE NOTICE**
 
-+ There can only be one MAINSALE_SEED address for the market;
-+ There is no strict rule to add MAINSALE_SEED address for the market;
-+ MAINSALE_SEED address must be added to the administrators list. However if you miss this step, `MAINSALE_SEED` address will be automatically added to the `ADMIN_LIST` just after running the market.
++ There can only be one `MAINSALE_SEED` address for the marketplace;
++ There is no strict rule to add `MAINSALE_SEED` address for the marketplace;
++ `MAINSALE_SEED` address must be added to the administrators list. However if you miss this step, `MAINSALE_SEED` address will be automatically added to the `ADMIN_LIST` just after running the marketplace.
 
 3. `ADMIN_LIST` is an array of substrate adresses of all the administrators including `MAINSALE_SEED` when it exists.
 > Add Substrate addresses of marketplace administrators separated by commas. Works since version marketplace API v1.6.0
 
 **WARNING!!!**
-Make sure that `MAINSALE_SEED` has different from `ESCROW_SEED` and `AUCTION_SEED` values, otherwise the market will not be able to work correctly and it will create vulnerabilities.
+Make sure that `MAINSALE_SEED` has different from `ESCROW_SEED` and `AUCTION_SEED` value, otherwise the marketplace will not be able to work correctly and it will create vulnerabilities.
 
-It is supposed that market type is set when deploying the market and there are no other collections added.
-However if the owner of a secondary market switches it to the primary type when there are lots of offers created the following approach is used:
+It is supposed that type is set when deploying the marketplace and there are no other collections added.
+However if the owner of a secondary marketplace switches it to the primary type when there are lots of offers created the following approach is used:
 
 Auctions:
    - all auctions are stopped. The last high bid wins the auction;
@@ -316,7 +316,7 @@ Offers:
 
 **ADMIN PANEL**
 
-For all accounts added to the `ADMIN_LIST` variable access to the **Admin panel** of the market is provided regardless of the market state.
+For all accounts added to the `ADMIN_LIST` variable access to the **Admin panel** of the marketplace is provided regardless of it's state.
 
 The main goal of the **Admin panel** is adding collections for sale and enabling collection sponsoring. You can find additional information in the [create a sponsored collection](#step-4---create-a-sponsored-collection) and [sponsoring](#sponsoring) sections.
 
@@ -333,11 +333,11 @@ You will navigate to the **Admin panel**.
 2. Remove collections from sale;
 3. Accept sponsorship;
 4. Reject sponsorship;
-5. Listing particular tokens of a collection to the market (or all the tokens). 
+5. Listing particular tokens of a collection to the marketplace (or all the tokens). 
 
 Additional functionalities are available as well:
 + Navigate to the 'Scan' page of the collection;
-+ Creation new collections via wallet. By clicking corresponding button user will be redirected to the wallet page;
++ Navigate to the wallet where the user can create new collection;
 + Search by collection ID or Name;
 + Sorting collections.
 
