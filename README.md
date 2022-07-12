@@ -351,7 +351,7 @@ For such purposes you can use the marketplace Swagger Api:
   - `/api/admin/collections/auction` for mass auction sale;
   - `/api/admin/mass-cancel` to perform the cancellation of all offers and auctions.
 
-Note that `MAINSALE_SEED` has to be the owner of the tokens supposed to be put for sale.
+Note that `MAINSALE_SEED` has to be the owner of the tokens supposed to be put up for sale.
  
 # Chats and Communities
 
