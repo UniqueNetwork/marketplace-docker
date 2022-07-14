@@ -316,7 +316,7 @@ Offers:
 
 **ADMIN PANEL**
 
-For all accounts added to the `ADMIN_LIST` variable access to the **Admin panel** of the marketplace is provided regardless of it's state.
+For all accounts added to the `ADMIN_LIST` variable access to the **Admin panel** of the marketplace is provided regardless of its state.
 
 The main goal of the **Admin panel** is adding collections for sale and enabling collection sponsoring. You can find additional information in the [create a sponsored collection](#step-4---create-a-sponsored-collection) and [sponsoring](#sponsoring) sections.
 
