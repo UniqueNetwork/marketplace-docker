@@ -281,7 +281,7 @@ When the marketplace is **Secondary**, all the users can put up tokens for sale.
 
 ![Secondary](./doc/secondary_market.png)
 
-There are **three environment variables** under 'Market type configuration' section inside the `.env` file.
+There are **three environment variables** under the 'Market type configuration' section inside the `.env` file.
 
 1. Type of the marketplace can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable appropriate type.
 
