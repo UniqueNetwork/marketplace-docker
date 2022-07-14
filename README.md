@@ -296,7 +296,7 @@ There are **three environment variables** under the 'Market type configuration' 
 + There is no strict rule to add `MAINSALE_SEED` address for the marketplace;
 + `MAINSALE_SEED` address must be added to the administrators list. However if you miss this step, `MAINSALE_SEED` address will be automatically added to the `ADMIN_LIST` just after running the marketplace.
 
-3. `ADMIN_LIST` is an array of substrate adresses of all the administrators including `MAINSALE_SEED` when it exists.
+3. `ADMIN_LIST` is an array of substrate addresses of all the administrators including `MAINSALE_SEED` when it exists.
 > Add Substrate addresses of marketplace administrators separated by commas. Works since version marketplace API v1.6.0
 
 **WARNING!!!**
