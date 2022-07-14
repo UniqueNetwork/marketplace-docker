@@ -283,7 +283,7 @@ When the marketplace is **Secondary**, all the users can put up tokens for sale.
 
 There are **three environment variables** under the 'Market type configuration' section inside the `.env` file.
 
-1. Type of the marketplace can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable appropriate type.
+1. The type of the marketplace can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable the appropriate type.
 
 2. `MAINSALE_SEED` variable is a substrate address of the account which is granted:
 - to perform mass placement of tokens for sale with fixed price;
