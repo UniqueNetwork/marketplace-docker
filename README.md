@@ -303,7 +303,7 @@ There are **three environment variables** under the 'Market type configuration' 
 Make sure that `MAINSALE_SEED` has different from `ESCROW_SEED` and `AUCTION_SEED` value, otherwise the marketplace will not be able to work correctly and it will create vulnerabilities.
 
 It is supposed that type is set when deploying the marketplace and there are no other collections added.
-However if the owner of a secondary marketplace switches it to the primary type when there are lots of offers created the following approach is used:
+However, if the owner of a secondary marketplace switches it to the primary type when there are lots of offers created the following approach is used:
 
 Auctions:
    - all auctions are stopped. The last high bid wins the auction;
