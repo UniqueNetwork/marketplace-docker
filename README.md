@@ -286,7 +286,7 @@ There are **three environment variables** under the 'Market type configuration' 
 1. The type of the marketplace can be configured by changing `MARKET_TYPE` variable. By default it is set as 'secondary'. Update the value as 'primary' to enable the appropriate type.
 
 2. `MAINSALE_SEED` variable is a substrate address of the account which is granted:
-- to perform mass placement of tokens for sale with fixed price;
+- to perform mass placement of tokens for sale with a fixed price;
 - to perform mass placement of tokens for auction sale;
 - to perform the cancellation of all offers and auctions of the secondary marketplace;
 
