@@ -272,7 +272,7 @@ There are two possible states of the marketplace **Secondary** and **Primary**.
 
 When the marketplace is switched to the **Primary**:
 - Only administrators can put up tokens for sale. This is applicable for both - fixed price and auction selling methods; 
-- Other users cannot put up tokens for sale. 'Sell' button is not available at the token pages;
+- Other users cannot put up tokens for sale. The 'Sell' button is not available on the token pages;
 - At the same time 'Transfer' button is available for all users in any state of the marketplace.
 
 ![Primary](./doc/primary_market.png)
