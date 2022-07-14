@@ -337,7 +337,7 @@ You will navigate to the **Admin panel**.
 
 Additional functionalities are available as well:
 + Navigate to the 'Scan' page of the collection;
-+ Navigate to the wallet where the user can create new collection;
++ Navigate to the wallet where the user can create a new collection;
 + Search by collection ID or Name;
 + Sorting collections.
 
