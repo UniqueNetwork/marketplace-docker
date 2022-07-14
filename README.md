@@ -277,7 +277,7 @@ When the marketplace is switched to the **Primary**:
 
 ![Primary](./doc/primary_market.png)
 
-When the marketplace is the **Secondary** all the users can put up tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
+When the marketplace is **Secondary**, all the users can put up tokens for sale. Both 'Sell' and 'Transfer' buttons are available.
 
 ![Secondary](./doc/secondary_market.png)
 
