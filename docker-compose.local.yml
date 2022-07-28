@@ -13,13 +13,16 @@ services:
   nginx:
     container_name: nginx
     image: nginx:alpine
+    restart: on-failure
     volumes:
       - ./nginx/nginx.local.conf:/etc/nginx/templates/default.conf.template:ro
+      - ./nginx/ssl:/etc/nginx/ssl/:ro
     ports:
       - 80:80
       - 443:443
     depends_on:
       - frontend
+      - backend
 
   frontend:
     container_name: frontend
