@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 x-marketplace: &marketplace-backend
   image: uniquenetwork/marketplace-backend:${MARKET_VERSION}
@@ -7,25 +7,34 @@ x-marketplace: &marketplace-backend
     - ./.env
   depends_on:
     - postgres
+    - blockchain
+
 
 services:
-
   nginx:
     container_name: nginx
     image: nginx:alpine
     restart: on-failure
     volumes:
-      - ./nginx/nginx.local.conf:/etc/nginx/templates/default.conf.template:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/local.conf:/etc/nginx/conf.d/local.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl/:ro
     ports:
       - 80:80
+      - 8080:80
       - 443:443
+      - 9943:8443
+      - 8443:8443
+      - 8444:8444
+
     depends_on:
       - frontend
-      - backend
+#      - backend
+      - blockchain
 
   frontend:
     container_name: frontend
+    hostname: frontend
     image: uniquenetwork/marketplace-frontend:${MARKET_VERSION}
     env_file:
       - ./.env
@@ -33,21 +42,24 @@ services:
       - ./static/footer.html:/usr/share/nginx/html/footer.html:ro
       - ./static/logo.svg:/usr/share/nginx/html/logos/logo.svg:ro
       - ./static/variables.css:/usr/share/nginx/html/variables.css:ro
-    depends_on:
-      - backend
 
+    depends_on:
+      - blockchain
 
   backend:
     container_name: backend
+    network_mode: 'service:nginx'
     <<: *marketplace-backend
 
   escrow-unique:
     container_name: escrow-unique
+
     command: [ "npm", "run", "escrow:unique" ]
     <<: *marketplace-backend
 
   escrow-kusama:
     container_name: escrow-kusama
+
     command: [ "npm", "run", "escrow:kusama" ]
     <<: *marketplace-backend
 
@@ -56,6 +68,16 @@ services:
     container_name: postgres
     env_file:
       - ./.env
+    ports:
+      - 5432:5432
+
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
+
+  blockchain:
+    image: uniquenetwork/opal-testnet-local:latest
+    container_name: blockchain
+    hostname: blockchain
+    ports:
+      - 9944:9944
